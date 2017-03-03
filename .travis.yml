@@ -3,6 +3,10 @@ node_js:
 - '5'
 script:
 - npm run build
+cache:
+  yarn: true
+  directories:
+  - node_modules
 after_success:
 - if ( [ "$TRAVIS_BRANCH" == "master" ] || [ ! -z "$TRAVIS_TAG" ] ) && [ "$TRAVIS_REPO_SLUG" == "dhis2/events-charts-app" ]  &&  [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
         mvn clean deploy --settings deploy/settings.xml && exit 0; 
