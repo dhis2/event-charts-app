@@ -12,62 +12,32 @@ AggregateOptionsWindow = function(refs) {
         uiManager = refs.uiManager,
         instanceManager = refs.instanceManager,
         i18n = refs.i18nManager.get(),
-        optionConfig = refs.optionConfig,
+        optionConfig = refs.optionConfig;
 
-        showValues,
-        percentStackedValues,
-        hideEmptyRows,
-        regressionType,
-        targetLineValue,
-        targetLineTitle,
-        baseLineValue,
-        baseLineTitle,
-        sortOrder,
-        aggregationType,
-
-        rangeAxisMinValue,
-        rangeAxisMaxValue,
-        rangeAxisSteps,
-        rangeAxisDecimals,
-        rangeAxisTitle,
-        domainAxisTitle,
-
-        hideLegend,
-        hideTitle,
-        title,
-
-        completedOnly,
-
-        data,
-        axes,
-        general,
-        events,
-        window,
-
-        comboBottomMargin = 1,
+    var comboBottomMargin = 1,
         checkboxBottomMargin = 2,
         separatorTopMargin = 6,
         cmpWidth = 360,
         labelWidth = 125,
         numberWidth = 80;
 
-    showValues = Ext.create('Ext.form.field.Checkbox', {
+    var showValues = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.show_values,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
         checked: true
     });
 
-    percentStackedValues = Ext.create('Ext.form.field.Checkbox', {
+    var percentStackedValues = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.percent_stacked_values,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px'
     });
 
-    hideEmptyRows = Ext.create('Ext.form.field.Checkbox', {
+    var hideEmptyRows = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.hide_empty_categories,
         style: 'margin-bottom:' + separatorTopMargin + 'px'
     });
 
-    regressionType = Ext.create('Ext.form.field.ComboBox', {
+    var regressionType = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
         width: cmpWidth,
@@ -87,7 +57,7 @@ AggregateOptionsWindow = function(refs) {
         })
     });
 
-    targetLineValue = Ext.create('Ext.form.field.Number', {
+    var targetLineValue = Ext.create('Ext.form.field.Number', {
         width: numberWidth,
         height: 18,
         listeners: {
@@ -97,7 +67,7 @@ AggregateOptionsWindow = function(refs) {
         }
     });
 
-    targetLineTitle = Ext.create('Ext.form.field.Text', {
+    var targetLineTitle = Ext.create('Ext.form.field.Text', {
         style: 'margin-left:1px; margin-bottom:1px',
         fieldStyle: 'padding-left:3px',
         width: cmpWidth - labelWidth - 5 - numberWidth - 1,
@@ -109,7 +79,7 @@ AggregateOptionsWindow = function(refs) {
         }
     });
 
-    baseLineValue = Ext.create('Ext.form.field.Number', {
+    var baseLineValue = Ext.create('Ext.form.field.Number', {
         //cls: 'gis-numberfield',
         width: numberWidth,
         height: 18,
@@ -120,7 +90,7 @@ AggregateOptionsWindow = function(refs) {
         }
     });
 
-    baseLineTitle = Ext.create('Ext.form.field.Text', {
+    var baseLineTitle = Ext.create('Ext.form.field.Text', {
         style: 'margin-left:1px; margin-bottom:1px',
         fieldStyle: 'padding-left:3px',
         width: cmpWidth - labelWidth - 5 - numberWidth - 1,
@@ -132,7 +102,7 @@ AggregateOptionsWindow = function(refs) {
         }
     });
 
-    sortOrder = Ext.create('Ext.form.field.ComboBox', {
+    var sortOrder = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
         width: cmpWidth,
@@ -153,7 +123,7 @@ AggregateOptionsWindow = function(refs) {
         })
     });
 
-    aggregationType = Ext.create('Ext.form.field.ComboBox', {
+    var aggregationType = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
         width: cmpWidth,
@@ -172,20 +142,20 @@ AggregateOptionsWindow = function(refs) {
     });
 
     // axes
-    rangeAxisMinValue = Ext.create('Ext.form.field.Number', {
+    var rangeAxisMinValue = Ext.create('Ext.form.field.Number', {
         width: numberWidth,
         height: 18,
         labelWidth: 125
     });
 
-    rangeAxisMaxValue = Ext.create('Ext.form.field.Number', {
+    var rangeAxisMaxValue = Ext.create('Ext.form.field.Number', {
         width: numberWidth,
         height: 18,
         labelWidth: 125,
         style: 'margin-left:1px'
     });
 
-    rangeAxisSteps = Ext.create('Ext.form.field.Number', {
+    var rangeAxisSteps = Ext.create('Ext.form.field.Number', {
         width: labelWidth + 5 + numberWidth,
         height: 18,
         fieldLabel: 'Range axis tick steps',
@@ -194,7 +164,7 @@ AggregateOptionsWindow = function(refs) {
         minValue: 1
     });
 
-    rangeAxisDecimals = Ext.create('Ext.form.field.Number', {
+    var rangeAxisDecimals = Ext.create('Ext.form.field.Number', {
         width: labelWidth + 5 + numberWidth,
         height: 18,
         fieldLabel: 'Range axis decimals',
@@ -204,7 +174,7 @@ AggregateOptionsWindow = function(refs) {
         maxValue: 20
     });
 
-    rangeAxisTitle = Ext.create('Ext.form.field.Text', {
+    var rangeAxisTitle = Ext.create('Ext.form.field.Text', {
         width: cmpWidth,
         fieldLabel: i18n.range_axis_label,
         labelStyle: 'color:#333',
@@ -214,7 +184,7 @@ AggregateOptionsWindow = function(refs) {
         style: 'margin-bottom:1px'
     });
 
-    domainAxisTitle = Ext.create('Ext.form.field.Text', {
+    var domainAxisTitle = Ext.create('Ext.form.field.Text', {
         width: cmpWidth,
         fieldLabel: i18n.domain_axis_label,
         labelStyle: 'color:#333',
@@ -225,12 +195,12 @@ AggregateOptionsWindow = function(refs) {
     });
 
     // general
-    hideLegend = Ext.create('Ext.form.field.Checkbox', {
+    var hideLegend = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.hide_legend,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px'
     });
 
-    hideTitle = Ext.create('Ext.form.field.Checkbox', {
+    var hideTitle = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.hide_chart_title,
         style: 'margin-bottom:7px',
         listeners: {
@@ -240,7 +210,7 @@ AggregateOptionsWindow = function(refs) {
         }
     });
 
-    title = Ext.create('Ext.form.field.Text', {
+    var title = Ext.create('Ext.form.field.Text', {
         width: cmpWidth,
         fieldLabel: i18n.chart_title,
         labelStyle: 'color:#333',
@@ -254,12 +224,12 @@ AggregateOptionsWindow = function(refs) {
     });
 
     // events
-    completedOnly = Ext.create('Ext.form.field.Checkbox', {
+    var completedOnly = Ext.create('Ext.form.field.Checkbox', {
         boxLabel: i18n.include_only_completed_events_only,
         style: 'margin-bottom:' + checkboxBottomMargin + 'px',
     });
 
-    data = {
+    var data = {
         xtype: 'container',
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
@@ -301,7 +271,7 @@ AggregateOptionsWindow = function(refs) {
         ]
     };
 
-    axes = {
+    var axes = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -325,7 +295,7 @@ AggregateOptionsWindow = function(refs) {
         ]
     };
 
-    general = {
+    var general = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -335,7 +305,7 @@ AggregateOptionsWindow = function(refs) {
         ]
     };
 
-    events = {
+    var events = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -343,7 +313,7 @@ AggregateOptionsWindow = function(refs) {
         ]
     };
 
-    window = Ext.create('Ext.window.Window', {
+    var window = Ext.create('Ext.window.Window', {
         title: i18n.chart_options,
         bodyStyle: 'background-color:#fff; padding:3px',
         closeAction: 'hide',

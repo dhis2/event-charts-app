@@ -379,23 +379,36 @@ AggregateLayoutWindow = function(refs) {
         ]
     });
 
-    var addDimension = function(record, store) {
-        var store = dimensionStoreMap[record.id] || store || colStore;
+    var addDimension = function(record, store, excludedStores, force) {
+        if (record.isProgramIndicator) {
+            return;
+        }
 
-        if (!hasDimension(record.id)) {
-            store.add(record);
+        store = store && force ? store : dimensionStoreMap[record.id] || store || filterStore;
+
+        if (hasDimension(record.id, excludedStores)) {
+            if (force) {
+                removeDimension(record.id);
+                store.add(record);
+            }
+        }
+        else {
+            if (record.id !== value.getValue()) {
+                store.add(record);
+            }
         }
     };
 
-    var removeDimension = function(dataElementId) {
-        var stores = [colStore, rowStore, filterStore, dimensionStore];
+    var removeDimension = function(id, excludedStores) {
+        var stores = arrayDifference([colStore, rowStore, filterStore, fixedFilterStore, valueStore], arrayFrom(excludedStores));
 
         for (var i = 0, store, index; i < stores.length; i++) {
             store = stores[i];
+            index = store.findExact('id', id);
 
-            if (store.hasDimension(dataElementId)) {
-                store.removeDimension(dataElementId);
-                dimensionStoreMap[dataElementId] = store;
+            if (index != -1) {
+                store.remove(store.getAt(index));
+                dimensionStoreMap[id] = store;
             }
         }
     };
