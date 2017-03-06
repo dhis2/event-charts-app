@@ -90,13 +90,13 @@ Layout.prototype.clone = function() {
     return layout;
 };
 
-Layout.prototype.getDataTypeUrl = function() {
+Layout.prototype.getDataTypeUrl = function(dataType) {
     var t = this,
         refs = t.getRefs();
 
     var { dimensionConfig } = refs;
 
-    var url = dimensionConfig.dataTypeUrl[this.dataType];
+    var url = dimensionConfig.dataTypeUrl[this.dataType || dataType];
 
     return url || '';
 };
@@ -120,7 +120,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
     var defAggTypeId = optionConfig.getAggregationType('def').id,
         displayProperty = this.displayProperty || appManager.getAnalyticsDisplayProperty();
 
-    source = source || instanceManager.analyticsEndpoint + this.getDataTypeUrl() + this.getProgramUrl();
+    source = source || instanceManager.analyticsEndpoint + this.getDataTypeUrl(dimensionConfig.getDefaultDataType()) + this.getProgramUrl();
 
     // dimensions
     this.getDimensions(false, isSorted).forEach(function(dimension) {
