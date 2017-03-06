@@ -146,6 +146,24 @@ body,
 	white-space: nowrap;
 }
 
+.ns-form-item-label-top {
+	padding-left: 2px;
+	float: none;
+	clear: none;
+	display: block;
+	margin-bottom: 2px !important;
+    color: #333;
+}
+.ns-form-item-label-top-padding {
+    padding-top: 3px;
+}
+
+.ns-container-default {
+    border: 0 none;
+    background: #fff;
+}
+
+
 /*----------------------------------------------------------------------------
  * Highcharts
  *--------------------------------------------------------------------------*/
@@ -216,7 +234,6 @@ body,
 
 .x-panel-body {
     font-size: 11px;
-    border-color: #dadada;
 }
 .x-panel .x-grid-body {
     border-style: none;
@@ -233,7 +250,7 @@ body,
 .ns-panel-title-dimension {
 	height: 17px;
 	background-repeat: no-repeat;
-	padding-left: 22px
+	padding-left: 20px
 }
 
 .ns-panel-title-data {
@@ -247,6 +264,19 @@ body,
 }
 .ns-panel-title-dimension {
 	background-image: url(../images/dataelementgroupset.png);
+}
+
+
+/*----------------------------------------------------------------------------
+ * PT Data Selector
+ *--------------------------------------------------------------------------*/
+
+.ns-dxselector .x-mask {
+    background: transparent;
+}
+
+.ns-dxselector.x-item-disabled {
+    opacity: 0.6;
 }
 
 
@@ -322,6 +352,17 @@ body,
 .ns-combo.h24 .x-form-trigger {
     height: 24px !important;
 }
+
+    /* Option selector */
+.ns-optionselector .x-boundlist-selected {
+    background-color: #fff;
+    border-color: #fff
+}
+.ns-optionselector .x-boundlist-selected.x-boundlist-item-over {
+    background-color: #ddd;
+    border-color: #ddd
+}
+
 
 /*----------------------------------------------------------------------------
  * PT Trigger
@@ -655,6 +696,18 @@ body,
 	border-color: #bbb;
 }
 
+.x-btn-default-toolbar-small-over {
+	background-image: none;
+    background-color: #f3f3f3;
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f2f2f2), color-stop(100%, #f7f7f7));
+    background-image: -webkit-linear-gradient(top, #f2f2f2,#f7f7f7);
+    background-image: -moz-linear-gradient(top, #f2f2f2,#f7f7f7);
+    background-image: -o-linear-gradient(top, #f2f2f2,#f7f7f7);
+    background-image: -ms-linear-gradient(top, #f2f2f2,#f7f7f7);
+    background-image: linear-gradient(top, #f2f2f2,#f7f7f7);
+}
+
+
 	/* Chart image */
 .x-btn-default-toolbar-small-icon button {
     width: 32px !important;
@@ -669,7 +722,7 @@ body,
 }
 
 .x-btn-default-toolbar-small-pressed {
-	border-color: #bbb;
+	border-color: #aaa;
     background-image: none;
     background-color: #d6d6d6;
     background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d1d1d1), color-stop(100%, #e5e5e5));
@@ -768,6 +821,31 @@ body,
     opacity: 0.25;
 }
 
+.ns-button-combotrigger {
+    background-image: url('../images/trigger.gif');
+    background-position: 0 0;
+    width: 17px;
+    border-top-right-radius: 2px;
+}
+.ns-button-combotrigger-disabled,
+.ns-button-combotrigger-disabled * {
+    opacity: 0.8;
+    cursor: default !important;
+}
+
+	/* Link button */
+.ns-linkbutton.x-btn-default-small {
+    border: 1px solid transparent;
+    background: transparent;
+}
+.ns-linkbutton .x-btn-inner {
+    color: #3162c5;
+    padding: 0;
+}
+.ns-linkbutton.x-btn-over .x-btn-inner {
+    text-decoration: underline;
+}
+
 
 /*----------------------------------------------------------------------------
  * Tooltip
@@ -809,7 +887,7 @@ body,
 	background-color: #000;
 	color: #fff;
 	border-radius: 2px;
-	padding: 12px 14px 12px 30px;
+	padding: 12px 14px 12px 31px;
 	opacity: 0.65;
 }
 
@@ -1082,11 +1160,11 @@ body,
 	/* accordion title dock outer, default */
 .ns-accordion .x-accordion-item {
 	border: 1px solid #c5c5c5;
-	border-bottom: 0 none;
+	border-top: 0 none;
 }
 	/* accordion title dock outer, last */
-.ns-accordion .ns-accordion-last {
-	border: 1px solid #c5c5c5;
+.ns-accordion .ns-accordion-first {
+	border-top: 1px solid #c5c5c5;
 }
 
 	/* accordion title dock text, shared */
