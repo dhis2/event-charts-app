@@ -16,7 +16,7 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                exclude: [/node_modules/, /d2-analysis/, /scripts/],
+                exclude: [/node_modules/, /d2-analysis/, /d2-charts-api/, /scripts/],
                 loader: 'babel',
                 query: {
                     cacheDirectory: true,
