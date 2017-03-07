@@ -15,13 +15,20 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
 
     // inherit
     Object.assign(t, new d2aLayout(refs, c, applyConfig));
+    t.prototype = d2aLayout.prototype;
+
+    // ensure 1 column, 1 row, n filters
+    t.stripAxes();
+
+    // type
+    t.type = refs.chartConfig.s2c[c.type] || refs.chartConfig.client[c.type] || refs.chartConfig.client['column'];
+
+    // data type
+    t.dataType = isString(c.dataType) ? c.dataType : null;
 
     // program
     t.program = isObject(c.program) ? c.program : null;
     t.programStage = isObject(c.programStage) ? c.programStage : null;
-
-    // data type
-    t.dataType = isString(c.dataType) ? c.dataType : null;
 
     // options
     t.showColTotals = isBoolean(c.colTotals) ? c.colTotals : (isBoolean(c.showColTotals) ? c.showColTotals : true);
