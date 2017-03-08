@@ -5,6 +5,8 @@ import 'd2-analysis/css/ui/GridHeaders.css';
 
 import arrayTo from 'd2-utilizr/lib/arrayTo';
 
+import { createChart } from 'd2-charts-api';
+
 import { api, table, manager, config, ui, init, override, ux } from 'd2-analysis';
 
 import { Dimension } from './api/Dimension';
@@ -50,7 +52,7 @@ refs.uiConfig = uiConfig;
 
     // app manager
 var appManager = new manager.AppManager();
-appManager.sessionName = 'eventreport';
+appManager.sessionName = 'eventchart';
 appManager.apiVersion = 26;
 refs.appManager = appManager;
 
@@ -84,10 +86,10 @@ refs.instanceManager = instanceManager;
 
     // table manager
 var tableManager = new manager.TableManager(refs);
-instanceManager.apiResource = 'eventReport';
-instanceManager.apiEndpoint = 'eventReports';
-instanceManager.apiModule = 'dhis-web-event-reports';
-instanceManager.dataStatisticsEventType = 'EVENT_REPORT_VIEW';
+instanceManager.apiResource = 'eventChart';
+instanceManager.apiEndpoint = 'eventCharts';
+instanceManager.apiModule = 'dhis-web-event-visualizer';
+instanceManager.dataStatisticsEventType = 'EVENT_CHART_VIEW';
 refs.instanceManager = instanceManager;
 
 // dependencies
@@ -183,50 +185,18 @@ function initialize() {
             instanceManager.postDataStatistics();
         };
 
-        var createPivotTable = function(layout, response) {
-            var sortingId = layout.sorting ? layout.sorting.id : null,
-                _table;
+        var el = uiManager.getUpdateComponent().body.id;
+        var response = layout.getResponse();
+console.log("layout", layout);
+console.log("response", response);
+console.log("el", el);
+        var { chart } = createChart(response, layout, el);
 
-            var getTable = function() {
-                var colAxis = new table.PivotTableAxis(refs, layout, response, 'col');
-                var rowAxis = new table.PivotTableAxis(refs, layout, response, 'row');
-                return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true });
-            };
+        // reg
+        uiManager.reg(chart, 'chart');
 
-            if (response && response.rows.length) {
+        afterLoad();
 
-                // pre-sort if id
-                if (sortingId && sortingId !== 'total') {
-                    layout.sort();
-                }
-
-                // table
-                _table = getTable();
-
-                // validate
-                if (_table.tdCount > 20000 || (layout.hideEmptyRows && _table.tdCount > 10000)) {
-                    alert('Table has too many cells. Please reduce the table and try again.');
-                    return;
-                }
-
-                // sort if total
-                if (sortingId && sortingId === 'total') {
-                    layout.sort(_table);
-                    _table = getTable();
-                }
-
-                // render
-                uiManager.update(_table.html);
-
-                // events
-                tableManager.setColumnHeaderMouseHandlers(layout, _table);
-            }
-            else {
-                uiManager.update('<div style="margin:20px; color:#666">No data to display</div>'); // TODO improve
-            }
-
-            afterLoad();
-        };
     });
 
     // ui manager
