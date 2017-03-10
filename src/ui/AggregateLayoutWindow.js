@@ -479,8 +479,8 @@ AggregateLayoutWindow = function(refs) {
         value.clearValue();
 
         if (!isAll) {
-            colStore.add({id: confOrganisationUnit.dimensionName, name: confOrganisationUnit.name});
-            colStore.add({id: confPeriod.dimensionName, name: confPeriod.name});
+            rowStore.add({id: confPeriod.dimensionName, name: confPeriod.name});
+            filterStore.add({id: confOrganisationUnit.dimensionName, name: confOrganisationUnit.name});
         }
 
         fixedFilterStore.setListHeight();
@@ -550,6 +550,9 @@ AggregateLayoutWindow = function(refs) {
         resetData: resetData,
         reset: reset,
         toggleValueGui: toggleValueGui,
+        getDefaultStore: function() {
+            return colStore;
+        },
         getValueConfig: function() {
             var config = {},
                 valueId = value.getValue();
