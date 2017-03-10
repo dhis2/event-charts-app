@@ -37,6 +37,11 @@ AggregateOptionsWindow = function(refs) {
         style: 'margin-bottom:' + separatorTopMargin + 'px'
     });
 
+    var hideNaData = Ext.create('Ext.form.field.Checkbox', {
+        boxLabel: i18n.hide_na_data,
+        style: 'margin-bottom:' + checkboxBottomMargin + 'px',
+    });
+
     var regressionType = Ext.create('Ext.form.field.ComboBox', {
         cls: 'ns-combo',
         style: 'margin-bottom:' + comboBottomMargin + 'px',
@@ -120,24 +125,6 @@ AggregateOptionsWindow = function(refs) {
                 {id: -1, text: i18n.low_to_high},
                 {id: 1, text: i18n.high_to_low}
             ]
-        })
-    });
-
-    var aggregationType = Ext.create('Ext.form.field.ComboBox', {
-        cls: 'ns-combo',
-        style: 'margin-bottom:' + comboBottomMargin + 'px',
-        width: cmpWidth,
-        labelWidth: 125,
-        fieldLabel: i18n.aggregation_type,
-        labelStyle: 'color:#333',
-        queryMode: 'local',
-        valueField: 'id',
-        displayField: 'name',
-        editable: false,
-        value: optionConfig.getAggregationType('def').id,
-        store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'name', 'index'],
-            data: optionConfig.getAggregationTypeRecords()
         })
     });
 
@@ -237,6 +224,7 @@ AggregateOptionsWindow = function(refs) {
             showValues,
             percentStackedValues,
             hideEmptyRows,
+            hideNaData,
             regressionType,
             {
                 xtype: 'container',
@@ -266,8 +254,7 @@ AggregateOptionsWindow = function(refs) {
                     baseLineTitle
                 ]
             },
-            sortOrder,
-            aggregationType
+            sortOrder
         ]
     };
 
@@ -329,6 +316,7 @@ AggregateOptionsWindow = function(refs) {
                 showValues: showValues.getValue(),
                 percentStackedValues: percentStackedValues.getValue(),
                 hideEmptyRows: hideEmptyRows.getValue(),
+                hideNaData: hideNaData.getValue(),
                 regressionType: regressionType.getValue(),
                 completedOnly: completedOnly.getValue(),
                 targetLineValue: targetLineValue.getValue(),
@@ -336,7 +324,6 @@ AggregateOptionsWindow = function(refs) {
                 baseLineValue: baseLineValue.getValue(),
                 baseLineTitle: baseLineTitle.getValue(),
                 sortOrder: sortOrder.getValue(),
-                aggregationType: aggregationType.getValue(),
                 rangeAxisMaxValue: rangeAxisMaxValue.getValue(),
                 rangeAxisMinValue: rangeAxisMinValue.getValue(),
                 rangeAxisSteps: rangeAxisSteps.getValue(),
@@ -354,6 +341,7 @@ AggregateOptionsWindow = function(refs) {
             showValues.setValue(isBoolean(layout.showValues) ? layout.showValues : true);
             percentStackedValues.setValue(isBoolean(layout.percentStackedValues) ? layout.percentStackedValues : true);
             hideEmptyRows.setValue(isBoolean(layout.hideEmptyRows) ? layout.hideEmptyRows : false);
+            hideNaData.setValue(isBoolean(layout.hideNaData) ? layout.hideNaData : false);
             regressionType.setValue(isString(layout.regressionType) ? layout.regressionType : 'NONE');
 
             completedOnly.setValue(isBoolean(layout.completedOnly) ? layout.completedOnly : false);
@@ -389,7 +377,6 @@ AggregateOptionsWindow = function(refs) {
             }
 
             sortOrder.setValue(isNumber(layout.sortOrder) ? layout.sortOrder : 0);
-            aggregationType.setValue(isString(layout.aggregationType) ? layout.aggregationType : optionConfig.getAggregationType('def').id);
 
             // rangeAxisMaxValue
             if (isNumber(layout.rangeAxisMaxValue)) {
@@ -518,6 +505,7 @@ AggregateOptionsWindow = function(refs) {
                 w.showValues = showValues;
                 w.percentStackedValues = percentStackedValues;
                 w.hideEmptyRows = hideEmptyRows;
+                w.hideNaData = hideNaData;
                 w.regressionType = regressionType;
                 w.completedOnly = completedOnly;
                 w.targetLineValue = targetLineValue;
@@ -525,7 +513,6 @@ AggregateOptionsWindow = function(refs) {
                 w.baseLineValue = baseLineValue;
                 w.baseLineTitle = baseLineTitle;
                 w.sortOrder = sortOrder;
-                w.aggregationType = aggregationType;
                 w.rangeAxisMaxValue = rangeAxisMaxValue;
                 w.rangeAxisMinValue = rangeAxisMinValue;
                 w.rangeAxisSteps = rangeAxisSteps;

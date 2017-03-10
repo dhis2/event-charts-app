@@ -170,7 +170,7 @@ function initialize() {
     uiConfig.checkout('tracker');
 
     // app manager
-    appManager.appName = i18n.event_reports || 'Event Reports';
+    appManager.appName = i18n.event_visualizer || 'Event Visualizer';
 
     // instance manager
     instanceManager.setFn(function(layout) {
@@ -196,7 +196,6 @@ console.log("el", el);
         uiManager.reg(chart, 'chart');
 
         afterLoad();
-
     });
 
     // ui manager
