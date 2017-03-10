@@ -97,6 +97,30 @@ Layout.prototype.clone = function() {
     return layout;
 };
 
+Layout.prototype.toPost = function() {
+    var t = this,
+        refs = t.getRefs();
+
+    t.toPostSuper();
+
+    t.type = refs.chartConfig.c2s[t.type] || t.type;
+
+    t.showData = t.showValues;
+    delete t.showValues;
+
+    t.targetLineLabel = t.targetLineTitle;
+	delete t.targetLineTitle;
+
+    t.baseLineLabel = t.baseLineTitle;
+	delete t.baseLineTitle;
+
+    t.domainAxisLabel = t.domainAxisTitle;
+	delete t.domainAxisTitle;
+
+    t.rangeAxisLabel = t.rangeAxisTitle;
+	delete t.rangeAxisTitle;
+};
+
 Layout.prototype.getDataTypeUrl = function(dataType) {
     var t = this,
         refs = t.getRefs();
