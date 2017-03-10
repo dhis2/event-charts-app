@@ -254,9 +254,9 @@ AggregateLayoutWindow = function(refs) {
         displayField: 'name',
         editable: false,
         disabled: true,
-        value: 'COUNT',
-        disabledValue: 'COUNT',
-        defaultValue: 'AVERAGE',
+        value: optionConfig.getAggregationType('count').id,
+        disabledValue: optionConfig.getAggregationType('count').id,
+        defaultValue: optionConfig.getAggregationType('avg').id,
         setDisabled: function() {
             this.setValue(this.disabledValue);
             this.disable();
@@ -267,7 +267,7 @@ AggregateLayoutWindow = function(refs) {
         },
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'name'],
-            data: optionConfig.getAggregationTypeRecords()
+            data: optionConfig.getAggregationTypeRecords().filter(r => r.id !== optionConfig.getAggregationType('def').id)
         }),
         resetData: function() {
             this.setDisabled();
