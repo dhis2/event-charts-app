@@ -187,9 +187,7 @@ function initialize() {
 
         var el = uiManager.getUpdateComponent().body.id;
         var response = layout.getResponse();
-console.log("layout", layout);
-console.log("response", response);
-console.log("el", el);
+
         var { chart } = createChart(response, layout, el);
 
         // reg

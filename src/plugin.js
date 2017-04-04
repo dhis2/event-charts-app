@@ -3,22 +3,31 @@ import './css/style.css';
 import objectApplyIf from 'd2-utilizr/lib/objectApplyIf';
 import arrayTo from 'd2-utilizr/lib/arrayTo';
 
-import { api, config, init, manager, pivot, util } from 'd2-analysis';
+import { createChart } from 'd2-charts-api';
 
+import { api, table, manager, config, init, util } from 'd2-analysis';
+
+import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
-
-// version
-const VERSION = '26';
+import { InstanceManager } from './manager/InstanceManager';
 
 // extend
+api.Dimension = Dimension;
 api.Layout = Layout;
+manager.InstanceManager = InstanceManager;
 
 // references
 var refs = {
     api,
-    init,
-    pivot
+    init
 };
+
+// inits
+var inits = [
+    init.legendSetsInit,
+    init.dimensionsInit,
+    init.optionSetsInit
+];
 
 // dimension config
 var dimensionConfig = new config.DimensionConfig();
@@ -34,6 +43,8 @@ refs.periodConfig = periodConfig;
 
 // app manager
 var appManager = new manager.AppManager(refs);
+appManager.sessionName = 'eventchart';
+appManager.apiVersion = 26;
 refs.appManager = appManager;
 
 // calendar manager
@@ -52,48 +63,40 @@ refs.i18nManager = i18nManager;
 var sessionStorageManager = new manager.SessionStorageManager(refs);
 refs.sessionStorageManager = sessionStorageManager;
 
+// indexed db manager
+var indexedDbManager = new manager.IndexedDbManager(refs);
+refs.indexedDbManager = indexedDbManager;
+
 // dependencies
-
 dimensionConfig.setI18nManager(i18nManager);
+dimensionConfig.init();
 optionConfig.setI18nManager(i18nManager);
+optionConfig.init();
 periodConfig.setI18nManager(i18nManager);
+periodConfig.init();
 
-appManager.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
-dimensionConfig.applyTo(arrayTo(pivot));
-optionConfig.applyTo([].concat(arrayTo(api), arrayTo(pivot)));
+appManager.applyTo(arrayTo(api));
+optionConfig.applyTo(arrayTo(api));
 
 // plugin
 function render(plugin, layout) {
-    var instanceRefs = {
-        dimensionConfig,
-        optionConfig,
-        periodConfig,
-        api,
-        pivot,
-        appManager,
-        calendarManager,
-        requestManager,
-        sessionStorageManager
-    };
+    var instanceRefs = Object.assign({}, refs);
 
     // ui manager
     var uiManager = new manager.UiManager(instanceRefs);
     instanceRefs.uiManager = uiManager;
     uiManager.applyTo(arrayTo(api));
+    uiManager.preventMask = true;
 
     // instance manager
     var instanceManager = new manager.InstanceManager(instanceRefs);
     instanceRefs.instanceManager = instanceManager;
-    instanceManager.apiResource = 'reportTable';
-    instanceManager.apiEndpoint = 'reportTables';
-    instanceManager.apiModule = 'dhis-web-pivot';
+    instanceManager.apiResource = 'eventChart';
+    instanceManager.apiEndpoint = 'eventCharts';
+    instanceManager.apiModule = 'dhis-web-event-visualizer';
     instanceManager.plugin = true;
-    instanceManager.dashboard = reportTablePlugin.dashboard;
+    instanceManager.dashboard = eventChartPlugin.dashboard;
     instanceManager.applyTo(arrayTo(api));
-
-    // table manager
-    var tableManager = new manager.TableManager(instanceRefs);
-    instanceRefs.tableManager = tableManager;
 
     // initialize
     uiManager.setInstanceManager(instanceManager);
@@ -125,7 +128,7 @@ function render(plugin, layout) {
             table = getTable();
         }
 
-        html += reportTablePlugin.showTitles ? uiManager.getTitleHtml(_layout.title || _layout.name) : '';
+        html += eventChartPlugin.showTitles ? uiManager.getTitleHtml(_layout.title || _layout.name) : '';
         html += table.html;
 
         uiManager.update(html, _layout.el);
@@ -153,4 +156,4 @@ function render(plugin, layout) {
     }
 };
 
-global.reportTablePlugin = new util.Plugin({ refs, VERSION, renderFn: render });
+global.eventChartPlugin = new util.Plugin({ refs, inits, renderFn: render });
