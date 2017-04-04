@@ -8,7 +8,7 @@ cache:
   directories:
   - node_modules
 after_success:
-- if ( [ "$TRAVIS_BRANCH" == "master" ] || [ ! -z "$TRAVIS_TAG" ] ) && [ "$TRAVIS_REPO_SLUG" == "dhis2/events-charts-app" ]  &&  [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
+- if ( [ "$TRAVIS_BRANCH" == "master" ] || [ ! -z "$TRAVIS_TAG" ] ) && [ "$TRAVIS_REPO_SLUG" == "dhis2/event-charts-app" ]  &&  [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
         mvn clean deploy --settings deploy/settings.xml && exit 0; 
   fi
 env:
