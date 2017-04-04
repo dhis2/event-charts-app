@@ -41,6 +41,10 @@ refs.optionConfig = optionConfig;
 var periodConfig = new config.PeriodConfig();
 refs.periodConfig = periodConfig;
 
+    // chart config
+var chartConfig = new config.ChartConfig();
+refs.chartConfig = chartConfig;
+
 // app manager
 var appManager = new manager.AppManager(refs);
 appManager.sessionName = 'eventchart';
@@ -101,40 +105,23 @@ function render(plugin, layout) {
     // initialize
     uiManager.setInstanceManager(instanceManager);
 
+    // instance manager
     instanceManager.setFn(function(_layout) {
-        var sortingId = _layout.sorting ? _layout.sorting.id : null,
-            html = '',
-            table;
-
-        // get table
-        var getTable = function() {
-            var response = _layout.getResponse();
-            var colAxis = new pivot.TableAxis(_layout, response, 'col');
-            var rowAxis = new pivot.TableAxis(_layout, response, 'row');
-            return new pivot.Table(_layout, response, colAxis, rowAxis, {skipTitle: true});
+        var el = _layout.el;
+        var response = _layout.getResponse();
+        var extraOptions = {
+            dashboard: instanceManager.dashboard
         };
 
-        // pre-sort if id
-        if (sortingId && sortingId !== 'total') {
-            _layout.sort();
-        }
+        var { chart } = createChart(response, _layout, el, extraOptions);
 
-        // table
-        table = getTable();
+        // reg
+        uiManager.reg(chart, 'chart');
 
-        // sort if total
-        if (sortingId && sortingId === 'total') {
-            _layout.sort(table);
-            table = getTable();
-        }
-
-        html += eventChartPlugin.showTitles ? uiManager.getTitleHtml(_layout.title || _layout.name) : '';
-        html += table.html;
-
-        uiManager.update(html, _layout.el);
-
-        // events
-        tableManager.setColumnHeaderMouseHandlers(_layout, table);
+        // dashboard item resize
+        document.getElementById(el).setViewportWidth = function (width) {
+            chart.setSize(width, undefined, {duration: 100});
+        };
 
         // mask
         uiManager.unmask();
