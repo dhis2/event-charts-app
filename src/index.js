@@ -244,18 +244,18 @@ function initialize() {
 
     var defaultIntegrationButton = uiManager.reg(ui.IntegrationButton(refs, {
         isDefaultButton: true,
-        btnText: i18n.table,
-        btnIconCls: 'ns-button-icon-table'
+        btnText: i18n.chart,
+        btnIconCls: 'ns-button-icon-chart'
     }), 'defaultIntegrationButton');
 
-    var chartIntegrationButton = ui.IntegrationButton(refs, {
-        objectName: 'event-chart',
-        moduleName: 'dhis-web-event-visualizer',
-        btnIconCls: 'ns-button-icon-chart',
-        btnText: i18n.chart,
-        menuItem1Text: i18n.go_to_event_charts,
-        menuItem2Text: i18n.open_this_table_as_chart,
-        menuItem3Text: i18n.open_last_chart
+    var tableIntegrationButton = ui.IntegrationButton(refs, {
+        objectName: 'event-report',
+        moduleName: 'dhis-web-event-reports',
+        btnIconCls: 'ns-button-icon-table',
+        btnText: i18n.table,
+        menuItem1Text: i18n.go_to_event_reports,
+        menuItem2Text: i18n.open_this_chart_as_table,
+        menuItem3Text: i18n.open_last_table
     });
 
     // viewport
@@ -266,7 +266,7 @@ function initialize() {
         chartTypeToolbar: chartTypeToolbar,
         integrationButtons: [
             defaultIntegrationButton,
-            chartIntegrationButton
+            tableIntegrationButton
         ],
         DownloadButtonItems: ui.ChartDownloadButtonItems,
     }, {
