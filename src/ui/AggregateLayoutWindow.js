@@ -254,9 +254,9 @@ AggregateLayoutWindow = function(refs) {
         displayField: 'name',
         editable: false,
         disabled: true,
-        value: 'COUNT',
-        disabledValue: 'COUNT',
-        defaultValue: 'AVERAGE',
+        value: optionConfig.getAggregationType('count').id,
+        disabledValue: optionConfig.getAggregationType('count').id,
+        defaultValue: optionConfig.getAggregationType('avg').id,
         setDisabled: function() {
             this.setValue(this.disabledValue);
             this.disable();
@@ -267,7 +267,7 @@ AggregateLayoutWindow = function(refs) {
         },
         store: Ext.create('Ext.data.Store', {
             fields: ['id', 'name'],
-            data: optionConfig.getAggregationTypeRecords()
+            data: optionConfig.getAggregationTypeRecords().filter(r => r.id !== optionConfig.getAggregationType('def').id)
         }),
         resetData: function() {
             this.setDisabled();
@@ -479,8 +479,8 @@ AggregateLayoutWindow = function(refs) {
         value.clearValue();
 
         if (!isAll) {
-            colStore.add({id: confOrganisationUnit.dimensionName, name: confOrganisationUnit.name});
-            colStore.add({id: confPeriod.dimensionName, name: confPeriod.name});
+            rowStore.add({id: confPeriod.dimensionName, name: confPeriod.name});
+            filterStore.add({id: confOrganisationUnit.dimensionName, name: confOrganisationUnit.name});
         }
 
         fixedFilterStore.setListHeight();
@@ -550,6 +550,9 @@ AggregateLayoutWindow = function(refs) {
         resetData: resetData,
         reset: reset,
         toggleValueGui: toggleValueGui,
+        getDefaultStore: function() {
+            return colStore;
+        },
         getValueConfig: function() {
             var config = {},
                 valueId = value.getValue();

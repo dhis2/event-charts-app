@@ -20,35 +20,40 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     // ensure 1 column, 1 row, n filters
     t.stripAxes();
 
-    // type
+    // todo: global
+    t.hideEmptyRows = isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : (isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : true);
+    t.completedOnly = isBoolean(c.completedOnly) ? c.completedOnly : false;
+    t.sortOrder = isNumber(c.sortOrder) ? c.sortOrder : 0;
+
     t.type = refs.chartConfig.s2c[c.type] || refs.chartConfig.client[c.type] || refs.chartConfig.client['column'];
 
-    // data type
-    t.dataType = isString(c.dataType) ? c.dataType : null;
-
-    // program
     t.program = isObject(c.program) ? c.program : null;
     t.programStage = isObject(c.programStage) ? c.programStage : null;
 
-    // options
-    t.showColTotals = isBoolean(c.colTotals) ? c.colTotals : (isBoolean(c.showColTotals) ? c.showColTotals : true);
-    t.showRowTotals = isBoolean(c.rowTotals) ? c.rowTotals : (isBoolean(c.showRowTotals) ? c.showRowTotals : true);
-    t.showColSubTotals = isBoolean(c.colSubTotals) ? c.colSubTotals : (isBoolean(c.showColSubTotals) ? c.showColSubTotals : true);
-    t.showRowSubTotals = isBoolean(c.rowSubTotals) ? c.rowSubTotals : (isBoolean(c.showRowSubTotals) ? c.showRowSubTotals : true);
-    t.showDimensionLabels = isBoolean(c.showDimensionLabels) ? c.showDimensionLabels : (isBoolean(c.showDimensionLabels) ? c.showDimensionLabels : true);
-    t.showDataItemPrefix = isBoolean(c.showDataItemPrefix) ? c.showDataItemPrefix : (isBoolean(c.showDataItemPrefix) ? c.showDataItemPrefix : true);
-    t.hideEmptyRows = isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : false;
-    t.hideNaData = isBoolean(c.hideNaData) ? c.hideNaData : false;
-    t.collapseDataDimensions = isBoolean(c.collapseDataDimensions) ? c.collapseDataDimensions : false;
+    t.regressionType = isString(c.regressionType) ? c.regressionType : 'NONE';
     t.outputType = isString(c.outputType) ? c.outputType : refs.optionConfig.getOutputType('event').id;
 
-    t.completedOnly = isBoolean(c.completedOnly) ? c.completedOnly : false;
-    t.showHierarchy = isBoolean(c.showHierarchy) ? c.showHierarchy : false;
+    t.hideNaData = isBoolean(c.hideNaData) ? c.hideNaData : false;
+    t.showValues = isBoolean(c.showData) ? c.showData : (isBoolean(c.showValues) ? c.showValues : true);
+    t.percentStackedValues = isBoolean(c.percentStackedValues) ? c.percentStackedValues : false;
+    t.hideLegend = isBoolean(c.hideLegend) ? c.hideLegend : false;
+    t.hideTitle = isBoolean(c.hideTitle) ? c.hideTitle : false;
+    t.hideSubtitle = isBoolean(c.hideSubtitle) ? c.hideSubtitle : false;
 
-    t.displayDensity = isString(c.displayDensity) && !isEmpty(c.displayDensity) ? c.displayDensity : refs.optionConfig.getDisplayDensity('normal').id;
-    t.fontSize = isString(c.fontSize) && !isEmpty(c.fontSize) ? c.fontSize : refs.optionConfig.getFontSize('normal').id;
-    t.digitGroupSeparator = isString(c.digitGroupSeparator) && !isEmpty(c.digitGroupSeparator) ? c.digitGroupSeparator : refs.optionConfig.getDigitGroupSeparator('space').id;
-    t.legendSet = isObject(c.legendSet) ? c.legendSet : null;
+    t.targetLineValue = isNumber(c.targetLineValue) ? c.targetLineValue : null;
+    t.targetLineTitle = isString(c.targetLineLabel) && !isEmpty(c.targetLineLabel) ? c.targetLineLabel :
+        (isString(c.targetLineTitle) && !isEmpty(c.targetLineTitle) ? c.targetLineTitle : null);
+    t.baseLineValue = isNumber(c.baseLineValue) ? c.baseLineValue : null;
+    t.baseLineTitle = isString(c.baseLineLabel) && !isEmpty(c.baseLineLabel) ? c.baseLineLabel :
+        (isString(c.baseLineTitle) && !isEmpty(c.baseLineTitle) ? c.baseLineTitle : null);
+    t.rangeAxisMaxValue = isNumber(c.rangeAxisMaxValue) ? c.rangeAxisMaxValue : null;
+    t.rangeAxisMinValue = isNumber(c.rangeAxisMinValue) ? c.rangeAxisMinValue : null;
+    t.rangeAxisSteps = isNumber(c.rangeAxisSteps) ? c.rangeAxisSteps : null;
+    t.rangeAxisDecimals = isNumber(c.rangeAxisDecimals) ? c.rangeAxisDecimals : null;
+    t.rangeAxisTitle = isString(c.rangeAxisLabel) && !isEmpty(c.rangeAxisLabel) ? c.rangeAxisLabel :
+        (isString(c.rangeAxisTitle) && !isEmpty(c.rangeAxisTitle) ? c.rangeAxisTitle : null);
+    t.domainAxisTitle = isString(c.domainAxisLabel) && !isEmpty(c.domainAxisLabel) ? c.domainAxisLabel :
+        (isString(c.domainAxisTitle) && !isEmpty(c.domainAxisTitle) ? c.domainAxisTitle : null);
 
     // value, aggregation type
     if (isObject(c.value) && isString(c.value.id)) {
@@ -66,11 +71,6 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
 
     // graph map
     t.parentGraphMap = isObject(c.parentGraphMap) ? c.parentGraphMap : null;
-
-    // report table
-    t.reportingPeriod = isObject(c.reportParams) && isBoolean(c.reportParams.paramReportingPeriod) ? c.reportParams.paramReportingPeriod : (isBoolean(c.reportingPeriod) ? c.reportingPeriod : false);
-    t.organisationUnit =  isObject(c.reportParams) && isBoolean(c.reportParams.paramOrganisationUnit) ? c.reportParams.paramOrganisationUnit : (isBoolean(c.organisationUnit) ? c.organisationUnit : false);
-    t.parentOrganisationUnit = isObject(c.reportParams) && isBoolean(c.reportParams.paramParentOrganisationUnit) ? c.reportParams.paramParentOrganisationUnit : (isBoolean(c.parentOrganisationUnit) ? c.parentOrganisationUnit : false);
 
     // force apply
     Object.assign(t, forceApplyConfig);
@@ -95,6 +95,30 @@ Layout.prototype.clone = function() {
     layout.setDataDimensionItems(t.getDataDimensionItems());
 
     return layout;
+};
+
+Layout.prototype.toPost = function() {
+    var t = this,
+        refs = t.getRefs();
+
+    t.toPostSuper();
+
+    t.type = refs.chartConfig.c2s[t.type] || t.type;
+
+    t.showData = t.showValues;
+    delete t.showValues;
+
+    t.targetLineLabel = t.targetLineTitle;
+	delete t.targetLineTitle;
+
+    t.baseLineLabel = t.baseLineTitle;
+	delete t.baseLineTitle;
+
+    t.domainAxisLabel = t.domainAxisTitle;
+	delete t.domainAxisTitle;
+
+    t.rangeAxisLabel = t.rangeAxisTitle;
+	delete t.rangeAxisTitle;
 };
 
 Layout.prototype.getDataTypeUrl = function(dataType) {
