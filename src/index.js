@@ -5,6 +5,8 @@ import 'd2-analysis/css/ui/GridHeaders.css';
 
 import arrayTo from 'd2-utilizr/lib/arrayTo';
 
+import { createChart } from 'd2-charts-api';
+
 import { api, table, manager, config, ui, init, override, ux } from 'd2-analysis';
 
 import { Dimension } from './api/Dimension';
@@ -50,7 +52,7 @@ refs.uiConfig = uiConfig;
 
     // app manager
 var appManager = new manager.AppManager();
-appManager.sessionName = 'eventreport';
+appManager.sessionName = 'eventchart';
 appManager.apiVersion = 26;
 refs.appManager = appManager;
 
@@ -84,10 +86,10 @@ refs.instanceManager = instanceManager;
 
     // table manager
 var tableManager = new manager.TableManager(refs);
-instanceManager.apiResource = 'eventReport';
-instanceManager.apiEndpoint = 'eventReports';
-instanceManager.apiModule = 'dhis-web-event-reports';
-instanceManager.dataStatisticsEventType = 'EVENT_REPORT_VIEW';
+instanceManager.apiResource = 'eventChart';
+instanceManager.apiEndpoint = 'eventCharts';
+instanceManager.apiModule = 'dhis-web-event-visualizer';
+instanceManager.dataStatisticsEventType = 'EVENT_CHART_VIEW';
 refs.instanceManager = instanceManager;
 
 // dependencies
@@ -168,7 +170,7 @@ function initialize() {
     uiConfig.checkout('tracker');
 
     // app manager
-    appManager.appName = i18n.event_reports || 'Event Reports';
+    appManager.appName = i18n.event_visualizer || 'Event Visualizer';
 
     // instance manager
     instanceManager.setFn(function(layout) {
@@ -183,50 +185,15 @@ function initialize() {
             instanceManager.postDataStatistics();
         };
 
-        var createPivotTable = function(layout, response) {
-            var sortingId = layout.sorting ? layout.sorting.id : null,
-                _table;
+        var el = uiManager.getUpdateComponent().body.id;
+        var response = layout.getResponse();
 
-            var getTable = function() {
-                var colAxis = new table.PivotTableAxis(refs, layout, response, 'col');
-                var rowAxis = new table.PivotTableAxis(refs, layout, response, 'row');
-                return new table.PivotTable(refs, layout, response, colAxis, rowAxis, { unclickable: true });
-            };
+        var { chart } = createChart(response, layout, el);
 
-            if (response && response.rows.length) {
+        // reg
+        uiManager.reg(chart, 'chart');
 
-                // pre-sort if id
-                if (sortingId && sortingId !== 'total') {
-                    layout.sort();
-                }
-
-                // table
-                _table = getTable();
-
-                // validate
-                if (_table.tdCount > 20000 || (layout.hideEmptyRows && _table.tdCount > 10000)) {
-                    alert('Table has too many cells. Please reduce the table and try again.');
-                    return;
-                }
-
-                // sort if total
-                if (sortingId && sortingId === 'total') {
-                    layout.sort(_table);
-                    _table = getTable();
-                }
-
-                // render
-                uiManager.update(_table.html);
-
-                // events
-                tableManager.setColumnHeaderMouseHandlers(layout, _table);
-            }
-            else {
-                uiManager.update('<div style="margin:20px; color:#666">No data to display</div>'); // TODO improve
-            }
-
-            afterLoad();
-        };
+        afterLoad();
     });
 
     // ui manager
@@ -277,18 +244,18 @@ function initialize() {
 
     var defaultIntegrationButton = uiManager.reg(ui.IntegrationButton(refs, {
         isDefaultButton: true,
-        btnText: i18n.table,
-        btnIconCls: 'ns-button-icon-table'
+        btnText: i18n.chart,
+        btnIconCls: 'ns-button-icon-chart'
     }), 'defaultIntegrationButton');
 
-    var chartIntegrationButton = ui.IntegrationButton(refs, {
-        objectName: 'event-chart',
-        moduleName: 'dhis-web-event-visualizer',
-        btnIconCls: 'ns-button-icon-chart',
-        btnText: i18n.chart,
-        menuItem1Text: i18n.go_to_event_charts,
-        menuItem2Text: i18n.open_this_table_as_chart,
-        menuItem3Text: i18n.open_last_chart
+    var tableIntegrationButton = ui.IntegrationButton(refs, {
+        objectName: 'event-report',
+        moduleName: 'dhis-web-event-reports',
+        btnIconCls: 'ns-button-icon-table',
+        btnText: i18n.table,
+        menuItem1Text: i18n.go_to_event_reports,
+        menuItem2Text: i18n.open_this_chart_as_table,
+        menuItem3Text: i18n.open_last_table
     });
 
     // viewport
@@ -299,7 +266,7 @@ function initialize() {
         chartTypeToolbar: chartTypeToolbar,
         integrationButtons: [
             defaultIntegrationButton,
-            chartIntegrationButton
+            tableIntegrationButton
         ],
         DownloadButtonItems: ui.ChartDownloadButtonItems,
     }, {
