@@ -1303,20 +1303,21 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-d2-analysis@27.0.13:
-  version "27.0.13"
-  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-27.0.13.tgz#38bb39c946523f419c6cfe6902a1c7f7ff16892d"
+d2-analysis@27.0.15:
+  version "27.0.15"
+  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-27.0.15.tgz#a6f2f346d77a047eddde4cf2ab2a04f451c7fc4e"
   dependencies:
     d2-utilizr "0.2.13"
     jquery "2.1.4"
 
-d2-charts-api@27.0.2:
-  version "27.0.2"
-  resolved "https://registry.yarnpkg.com/d2-charts-api/-/d2-charts-api-27.0.2.tgz#93f1b658d6c137705724f6fe6a2830a263fcb13a"
+d2-charts-api@27.0.5:
+  version "27.0.5"
+  resolved "https://registry.yarnpkg.com/d2-charts-api/-/d2-charts-api-27.0.5.tgz#baa913e1bf914ac8d488e0dc6f79ec7f03274067"
   dependencies:
     d2-utilizr "0.2.13"
     d3-color "1.0.1"
-    highcharts "5.0.7"
+    highcharts "5.0.10"
+    highcharts-exporting "0.1.2"
     highcharts-more "0.1.2"
     highcharts-no-data-to-display "0.1.2"
     highcharts-solid-gauge "0.1.2"
@@ -2340,6 +2341,10 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
+highcharts-exporting@0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/highcharts-exporting/-/highcharts-exporting-0.1.2.tgz#49850e5a4dab2a4a88e83e8a1f143bc1c2250daf"
+
 highcharts-more@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/highcharts-more/-/highcharts-more-0.1.2.tgz#38c2e386569ec79c8bd97fd68b384c5ea512efac"
@@ -2352,9 +2357,9 @@ highcharts-solid-gauge@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/highcharts-solid-gauge/-/highcharts-solid-gauge-0.1.2.tgz#96c2943ddf362ada650ace2777514f8bda7094bb"
 
-highcharts@5.0.7:
-  version v5.0.7
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-5.0.7.tgz#63ebeeee05acd56e3b2554b5b31a1224e1e05bf6"
+highcharts@5.0.10:
+  version v5.0.10
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-5.0.10.tgz#7a432c39a3c27992314ab17e45ecf29bd1a91132"
 
 hoek@2.x.x:
   version "2.16.3"
