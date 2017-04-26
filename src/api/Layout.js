@@ -21,7 +21,7 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.stripAxes();
 
     // todo: global
-    t.hideEmptyRows = isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : (isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : true);
+    t.hideEmptyRowItems = isString(c.hideEmptyRowItems) ? c.hideEmptyRowItems : 'NONE';
     t.completedOnly = isBoolean(c.completedOnly) ? c.completedOnly : false;
     t.sortOrder = isNumber(c.sortOrder) ? c.sortOrder : 0;
 

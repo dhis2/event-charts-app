@@ -32,9 +32,27 @@ AggregateOptionsWindow = function(refs) {
         style: 'margin-bottom:' + checkboxBottomMargin + 'px'
     });
 
-    var hideEmptyRows = Ext.create('Ext.form.field.Checkbox', {
-        boxLabel: i18n.hide_empty_categories,
-        style: 'margin-bottom:' + separatorTopMargin + 'px'
+    var hideEmptyRowItems = Ext.create('Ext.form.field.ComboBox', {
+        cls: 'ns-combo',
+        style: 'margin-bottom:' + comboBottomMargin + 'px',
+        width: cmpWidth,
+        labelWidth: 125,
+        fieldLabel: i18n.hide_empty_categories,
+        labelStyle: 'color:#333',
+        queryMode: 'local',
+        valueField: 'id',
+        editable: false,
+        value: 'NONE',
+        store: Ext.create('Ext.data.Store', {
+            fields: ['id', 'text'],
+            data: [
+                {id: 'NONE', text: i18n.none},
+                {id: 'BEFORE_FIRST', text: i18n.before_first},
+                {id: 'AFTER_LAST', text: i18n.after_last},
+                {id: 'BEFORE_FIRST_AFTER_LAST', text: i18n.before_first_after_last},
+                {id: 'ALL', text: i18n.all}
+            ]
+        })
     });
 
     var hideNaData = Ext.create('Ext.form.field.Checkbox', {
@@ -223,7 +241,7 @@ AggregateOptionsWindow = function(refs) {
         items: [
             showValues,
             percentStackedValues,
-            hideEmptyRows,
+            hideEmptyRowItems,
             hideNaData,
             regressionType,
             {
@@ -315,7 +333,7 @@ AggregateOptionsWindow = function(refs) {
             return {
                 showValues: showValues.getValue(),
                 percentStackedValues: percentStackedValues.getValue(),
-                hideEmptyRows: hideEmptyRows.getValue(),
+                hideEmptyRowItems: hideEmptyRowItems.getValue(),
                 hideNaData: hideNaData.getValue(),
                 regressionType: regressionType.getValue(),
                 completedOnly: completedOnly.getValue(),
@@ -340,7 +358,7 @@ AggregateOptionsWindow = function(refs) {
 
             showValues.setValue(isBoolean(layout.showValues) ? layout.showValues : true);
             percentStackedValues.setValue(isBoolean(layout.percentStackedValues) ? layout.percentStackedValues : true);
-            hideEmptyRows.setValue(isBoolean(layout.hideEmptyRows) ? layout.hideEmptyRows : false);
+            hideEmptyRowItems.setValue(isString(layout.hideEmptyRowItems) ? layout.hideEmptyRowItems : 'NONE');
             hideNaData.setValue(isBoolean(layout.hideNaData) ? layout.hideNaData : false);
             regressionType.setValue(isString(layout.regressionType) ? layout.regressionType : 'NONE');
 
@@ -504,7 +522,7 @@ AggregateOptionsWindow = function(refs) {
                 // cmp
                 w.showValues = showValues;
                 w.percentStackedValues = percentStackedValues;
-                w.hideEmptyRows = hideEmptyRows;
+                w.hideEmptyRowItems = hideEmptyRowItems;
                 w.hideNaData = hideNaData;
                 w.regressionType = regressionType;
                 w.completedOnly = completedOnly;
