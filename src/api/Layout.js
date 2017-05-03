@@ -21,7 +21,7 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.stripAxes();
 
     // todo: global
-    t.hideEmptyRows = isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : (isBoolean(c.hideEmptyRows) ? c.hideEmptyRows : true);
+    t.hideEmptyRowItems = isString(c.hideEmptyRowItems) ? c.hideEmptyRowItems : 'NONE';
     t.completedOnly = isBoolean(c.completedOnly) ? c.completedOnly : false;
     t.sortOrder = isNumber(c.sortOrder) ? c.sortOrder : 0;
 
@@ -36,9 +36,11 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.hideNaData = isBoolean(c.hideNaData) ? c.hideNaData : false;
     t.showValues = isBoolean(c.showData) ? c.showData : (isBoolean(c.showValues) ? c.showValues : true);
     t.percentStackedValues = isBoolean(c.percentStackedValues) ? c.percentStackedValues : false;
+    t.cumulativeValues = isBoolean(c.cumulativeValues) ? c.cumulativeValues : false;
     t.hideLegend = isBoolean(c.hideLegend) ? c.hideLegend : false;
     t.hideTitle = isBoolean(c.hideTitle) ? c.hideTitle : false;
     t.hideSubtitle = isBoolean(c.hideSubtitle) ? c.hideSubtitle : false;
+    t.subtitle = isString(c.subtitle) && !isEmpty(c.subtitle) ? c.subtitle : null;
 
     t.targetLineValue = isNumber(c.targetLineValue) ? c.targetLineValue : null;
     t.targetLineTitle = isString(c.targetLineLabel) && !isEmpty(c.targetLineLabel) ? c.targetLineLabel :
