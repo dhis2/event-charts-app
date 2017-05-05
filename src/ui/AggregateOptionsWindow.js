@@ -3,6 +3,23 @@ import isNumber from 'd2-utilizr/lib/isNumber';
 import isBoolean from 'd2-utilizr/lib/isBoolean';
 import isObject from 'd2-utilizr/lib/isObject';
 
+// Options window components
+import { CumulativeValuesCheckbox } from 'd2-analysis/lib/ui/options/CumulativeValues';
+import { PercentStackedValuesCheckbox } from 'd2-analysis/lib/ui/options/PercentStackedValues';
+import { ShowValuesCheckbox } from 'd2-analysis/lib/ui/options/ShowValues';
+import { HideLegendCheckbox } from 'd2-analysis/lib/ui/options/HideLegend';
+import { HideNaDataCheckbox } from 'd2-analysis/lib/ui/options/HideNaData';
+import { RegressionTypeSelect } from 'd2-analysis/lib/ui/options/RegressionType';
+import { SortOrderSelect } from 'd2-analysis/lib/ui/options/SortOrder';
+import { HideEmptyRowItemsSelect } from 'd2-analysis/lib/ui/options/HideEmptyRowItems';
+import { CompletedOnlyCheckbox } from 'd2-analysis/lib/ui/options/CompletedOnly';
+import { AxisContainer } from 'd2-analysis/lib/ui/options/Axis';
+import { TitleContainer } from 'd2-analysis/lib/ui/options/Title';
+import { SubtitleContainer } from 'd2-analysis/lib/ui/options/Subtitle';
+import { AggregationTypeSelect } from 'd2-analysis/lib/ui/options/AggregationType';
+import { TargetLineContainer } from 'd2-analysis/lib/ui/options/TargetLine';
+import { BaseLineContainer } from 'd2-analysis/lib/ui/options/BaseLine';
+
 export var AggregateOptionsWindow;
 
 AggregateOptionsWindow = function(refs) {
@@ -12,209 +29,27 @@ AggregateOptionsWindow = function(refs) {
         uiManager = refs.uiManager,
         instanceManager = refs.instanceManager,
         i18n = refs.i18nManager.get(),
-        optionConfig = refs.optionConfig;
+        optionConfig = refs.optionConfig,
 
-    var comboBottomMargin = 1,
-        checkboxBottomMargin = 2,
-        separatorTopMargin = 6,
-        cmpWidth = 360,
-        labelWidth = 125,
-        numberWidth = 80;
+        // data
+        showValues = ShowValuesCheckbox(refs),
+        percentStackedValues = PercentStackedValuesCheckbox(refs),
+        cumulativeValues = CumulativeValuesCheckbox(refs),
+        hideEmptyRowItems = HideEmptyRowItemsSelect(refs),
+        regressionType = RegressionTypeSelect(refs),
+        targetLineContainer = TargetLineContainer(refs),
+        baseLineContainer = BaseLineContainer(refs),
+        sortOrder = SortOrderSelect(refs),
 
-    var showValues = Ext.create('Ext.form.field.Checkbox', {
-        boxLabel: i18n.show_values,
-        style: 'margin-bottom:' + checkboxBottomMargin + 'px',
-        checked: true
-    });
+        axisContainer = AxisContainer(refs),
 
-    var percentStackedValues = Ext.create('Ext.form.field.Checkbox', {
-        boxLabel: i18n.percent_stacked_values,
-        style: 'margin-bottom:' + checkboxBottomMargin + 'px'
-    });
+        hideLegend = HideLegendCheckbox(refs),
+        titleContainer = TitleContainer(refs),
+        subtitleContainer = SubtitleContainer(refs),
 
-    var hideEmptyRows = Ext.create('Ext.form.field.Checkbox', {
-        boxLabel: i18n.hide_empty_categories,
-        style: 'margin-bottom:' + separatorTopMargin + 'px'
-    });
+        hideNaData = HideNaDataCheckbox(refs),
 
-    var hideNaData = Ext.create('Ext.form.field.Checkbox', {
-        boxLabel: i18n.hide_na_data,
-        style: 'margin-bottom:' + checkboxBottomMargin + 'px',
-    });
-
-    var regressionType = Ext.create('Ext.form.field.ComboBox', {
-        cls: 'ns-combo',
-        style: 'margin-bottom:' + comboBottomMargin + 'px',
-        width: cmpWidth,
-        labelWidth: 125,
-        fieldLabel: i18n.trend_line,
-        labelStyle: 'color:#333',
-        queryMode: 'local',
-        valueField: 'id',
-        editable: false,
-        value: 'NONE',
-        store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
-            data: [
-                {id: 'NONE', text: i18n.none},
-                {id: 'LINEAR', text: i18n.linear}
-            ]
-        })
-    });
-
-    var targetLineValue = Ext.create('Ext.form.field.Number', {
-        width: numberWidth,
-        height: 18,
-        listeners: {
-            change: function(nf) {
-                targetLineTitle.xable();
-            }
-        }
-    });
-
-    var targetLineTitle = Ext.create('Ext.form.field.Text', {
-        style: 'margin-left:1px; margin-bottom:1px',
-        fieldStyle: 'padding-left:3px',
-        width: cmpWidth - labelWidth - 5 - numberWidth - 1,
-        maxLength: 100,
-        enforceMaxLength: true,
-        disabled: true,
-        xable: function() {
-            this.setDisabled(!targetLineValue.getValue() && !isNumber(targetLineValue.getValue()));
-        }
-    });
-
-    var baseLineValue = Ext.create('Ext.form.field.Number', {
-        //cls: 'gis-numberfield',
-        width: numberWidth,
-        height: 18,
-        listeners: {
-            change: function(nf) {
-                baseLineTitle.xable();
-            }
-        }
-    });
-
-    var baseLineTitle = Ext.create('Ext.form.field.Text', {
-        style: 'margin-left:1px; margin-bottom:1px',
-        fieldStyle: 'padding-left:3px',
-        width: cmpWidth - labelWidth - 5 - numberWidth - 1,
-        maxLength: 100,
-        enforceMaxLength: true,
-        disabled: true,
-        xable: function() {
-            this.setDisabled(!baseLineValue.getValue() && !isNumber(baseLineValue.getValue()));
-        }
-    });
-
-    var sortOrder = Ext.create('Ext.form.field.ComboBox', {
-        cls: 'ns-combo',
-        style: 'margin-bottom:' + comboBottomMargin + 'px',
-        width: cmpWidth,
-        labelWidth: 125,
-        fieldLabel: i18n.sort_order,
-        labelStyle: 'color:#333',
-        queryMode: 'local',
-        valueField: 'id',
-        editable: false,
-        value: 0,
-        store: Ext.create('Ext.data.Store', {
-            fields: ['id', 'text'],
-            data: [
-                {id: 0, text: i18n.none},
-                {id: -1, text: i18n.low_to_high},
-                {id: 1, text: i18n.high_to_low}
-            ]
-        })
-    });
-
-    // axes
-    var rangeAxisMinValue = Ext.create('Ext.form.field.Number', {
-        width: numberWidth,
-        height: 18,
-        labelWidth: 125
-    });
-
-    var rangeAxisMaxValue = Ext.create('Ext.form.field.Number', {
-        width: numberWidth,
-        height: 18,
-        labelWidth: 125,
-        style: 'margin-left:1px'
-    });
-
-    var rangeAxisSteps = Ext.create('Ext.form.field.Number', {
-        width: labelWidth + 5 + numberWidth,
-        height: 18,
-        fieldLabel: 'Range axis tick steps',
-        labelStyle: 'color:#333',
-        labelWidth: 125,
-        minValue: 1
-    });
-
-    var rangeAxisDecimals = Ext.create('Ext.form.field.Number', {
-        width: labelWidth + 5 + numberWidth,
-        height: 18,
-        fieldLabel: 'Range axis decimals',
-        labelStyle: 'color:#333',
-        labelWidth: 125,
-        minValue: 0,
-        maxValue: 20
-    });
-
-    var rangeAxisTitle = Ext.create('Ext.form.field.Text', {
-        width: cmpWidth,
-        fieldLabel: i18n.range_axis_label,
-        labelStyle: 'color:#333',
-        labelWidth: 125,
-        maxLength: 100,
-        enforceMaxLength: true,
-        style: 'margin-bottom:1px'
-    });
-
-    var domainAxisTitle = Ext.create('Ext.form.field.Text', {
-        width: cmpWidth,
-        fieldLabel: i18n.domain_axis_label,
-        labelStyle: 'color:#333',
-        labelWidth: 125,
-        maxLength: 100,
-        enforceMaxLength: true,
-        style: 'margin-bottom:1px'
-    });
-
-    // general
-    var hideLegend = Ext.create('Ext.form.field.Checkbox', {
-        boxLabel: i18n.hide_legend,
-        style: 'margin-bottom:' + checkboxBottomMargin + 'px'
-    });
-
-    var hideTitle = Ext.create('Ext.form.field.Checkbox', {
-        boxLabel: i18n.hide_chart_title,
-        style: 'margin-bottom:7px',
-        listeners: {
-            change: function() {
-                title.xable();
-            }
-        }
-    });
-
-    var title = Ext.create('Ext.form.field.Text', {
-        width: cmpWidth,
-        fieldLabel: i18n.chart_title,
-        labelStyle: 'color:#333',
-        labelWidth: 125,
-        maxLength: 100,
-        enforceMaxLength: true,
-        style: 'margin-bottom:0',
-        xable: function() {
-            this.setDisabled(hideTitle.getValue());
-        }
-    });
-
-    // events
-    var completedOnly = Ext.create('Ext.form.field.Checkbox', {
-        boxLabel: i18n.include_only_completed_events_only,
-        style: 'margin-bottom:' + checkboxBottomMargin + 'px',
-    });
+        completedOnly = CompletedOnlyCheckbox(refs);
 
     var data = {
         xtype: 'container',
@@ -223,75 +58,28 @@ AggregateOptionsWindow = function(refs) {
         items: [
             showValues,
             percentStackedValues,
-            hideEmptyRows,
+            cumulativeValues,
             hideNaData,
+            hideEmptyRowItems,
             regressionType,
-            {
-                xtype: 'container',
-                layout: 'column',
-                bodyStyle: 'border:0 none',
-                items: [
-                    {
-                        bodyStyle: 'border:0 none; padding-top:3px; margin-right:5px; color:#333',
-                        width: 130,
-                        html: 'Target value / title:'
-                    },
-                    targetLineValue,
-                    targetLineTitle
-                ]
-            },
-            {
-                xtype: 'container',
-                layout: 'column',
-                bodyStyle: 'border:0 none',
-                items: [
-                    {
-                        bodyStyle: 'border:0 none; padding-top:3px; margin-right:5px; color:#333',
-                        width: 130,
-                        html: 'Base value / title:'
-                    },
-                    baseLineValue,
-                    baseLineTitle
-                ]
-            },
+            targetLineContainer,
+            baseLineContainer,
             sortOrder
         ]
     };
 
-    var axes = {
-        bodyStyle: 'border:0 none',
-        style: 'margin-left:14px',
-        items: [
-            {
-                layout: 'column',
-                bodyStyle: 'border:0 none',
-                items: [
-                    {
-                        bodyStyle: 'border:0 none; padding-top:3px; margin-right:5px; color:#333',
-                        width: 130,
-                        html: 'Range axis min/max:'
-                    },
-                    rangeAxisMinValue,
-                    rangeAxisMaxValue
-                ]
-            },
-            rangeAxisSteps,
-            rangeAxisDecimals,
-            rangeAxisTitle,
-            domainAxisTitle
-        ]
-    };
-
+    // general
     var general = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
             hideLegend,
-            hideTitle,
-            title
+            titleContainer,
+            subtitleContainer
         ]
     };
 
+    // events
     var events = {
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
@@ -306,7 +94,6 @@ AggregateOptionsWindow = function(refs) {
         closeAction: 'hide',
         autoShow: true,
         modal: true,
-        resizable: false,
         hideOnBlur: true,
         reset: function() {
             this.setOptions();
@@ -315,24 +102,27 @@ AggregateOptionsWindow = function(refs) {
             return {
                 showValues: showValues.getValue(),
                 percentStackedValues: percentStackedValues.getValue(),
-                hideEmptyRows: hideEmptyRows.getValue(),
+                cumulativeValues: cumulativeValues.getValue(),
+                hideEmptyRowItems: hideEmptyRowItems.getValue(),
                 hideNaData: hideNaData.getValue(),
                 regressionType: regressionType.getValue(),
                 completedOnly: completedOnly.getValue(),
-                targetLineValue: targetLineValue.getValue(),
-                targetLineTitle: targetLineTitle.getValue(),
-                baseLineValue: baseLineValue.getValue(),
-                baseLineTitle: baseLineTitle.getValue(),
+                targetLineValue: targetLineContainer.targetLineValueInput.getValue(),
+                targetLineTitle: targetLineContainer.targetLineTitleInput.getValue(),
+                baseLineValue: baseLineContainer.baseLineValueInput.getValue(),
+                baseLineTitle: baseLineContainer.baseLineTitleInput.getValue(),
                 sortOrder: sortOrder.getValue(),
-                rangeAxisMaxValue: rangeAxisMaxValue.getValue(),
-                rangeAxisMinValue: rangeAxisMinValue.getValue(),
-                rangeAxisSteps: rangeAxisSteps.getValue(),
-                rangeAxisDecimals: rangeAxisDecimals.getValue(),
-                rangeAxisTitle: rangeAxisTitle.getValue(),
-                domainAxisTitle: domainAxisTitle.getValue(),
+                rangeAxisMaxValue: axisContainer.rangeAxisMaxValueInput.getValue(),
+                rangeAxisMinValue: axisContainer.rangeAxisMinValueInput.getValue(),
+                rangeAxisSteps: axisContainer.rangeAxisStepsInput.getValue(),
+                rangeAxisDecimals: axisContainer.rangeAxisDecimalsInput.getValue(),
+                rangeAxisTitle: axisContainer.rangeAxisTitleInput.getValue(),
+                domainAxisTitle: axisContainer.domainAxisTitleInput.getValue(),
                 hideLegend: hideLegend.getValue(),
-                hideTitle: hideTitle.getValue(),
-                title: title.getValue()
+                hideTitle: titleContainer.hideTitleCheckbox.getValue(),
+                title: titleContainer.titleInput.getValue(),
+                hideSubtitle: subtitleContainer.hideSubtitleCheckbox.getValue(),
+                subtitle: subtitleContainer.subtitleInput.getValue()
             };
         },
         setOptions: function(layout) {
@@ -340,7 +130,8 @@ AggregateOptionsWindow = function(refs) {
 
             showValues.setValue(isBoolean(layout.showValues) ? layout.showValues : true);
             percentStackedValues.setValue(isBoolean(layout.percentStackedValues) ? layout.percentStackedValues : true);
-            hideEmptyRows.setValue(isBoolean(layout.hideEmptyRows) ? layout.hideEmptyRows : false);
+            cumulativeValues.setValue(isBoolean(layout.cumulativeValues) ? layout.cumulativeValues : true);
+            hideEmptyRowItems.setValue(isString(layout.hideEmptyRowItems) ? layout.hideEmptyRowItems : 'NONE');
             hideNaData.setValue(isBoolean(layout.hideNaData) ? layout.hideNaData : false);
             regressionType.setValue(isString(layout.regressionType) ? layout.regressionType : 'NONE');
 
@@ -348,93 +139,102 @@ AggregateOptionsWindow = function(refs) {
 
             // target line
             if (isNumber(layout.targetLineValue)) {
-                targetLineValue.setValue(layout.targetLineValue);
+                targetLineContainer.targetLineValueInput.setValue(layout.targetLineValue);
             }
             else {
-                targetLineValue.reset();
+                targetLineContainer.targetLineValueInput.reset();
             }
 
             if (isString(layout.targetLineTitle)) {
-                targetLineTitle.setValue(layout.targetLineTitle);
+                targetLineContainer.targetLineTitleInput.setValue(layout.targetLineTitle);
             }
             else {
-                targetLineTitle.reset();
+                targetLineContainer.targetLineTitleInput.reset();
             }
 
             // base line
             if (isNumber(layout.baseLineValue)) {
-                baseLineValue.setValue(layout.baseLineValue);
+                baseLineContainer.baseLineValueInput.setValue(layout.baseLineValue);
             }
             else {
-                baseLineValue.reset();
+                baseLineContainer.baseLineValueInput.reset();
             }
 
             if (isString(layout.baseLineTitle)) {
-                baseLineTitle.setValue(layout.baseLineTitle);
+                baseLineContainer.baseLineTitleInput.setValue(layout.baseLineTitle);
             }
             else {
-                baseLineTitle.reset();
+                baseLineContainer.baseLineTitleInput.reset();
             }
 
             sortOrder.setValue(isNumber(layout.sortOrder) ? layout.sortOrder : 0);
 
             // rangeAxisMaxValue
             if (isNumber(layout.rangeAxisMaxValue)) {
-                rangeAxisMaxValue.setValue(layout.rangeAxisMaxValue);
+                axisContainer.rangeAxisMaxValueInput.setValue(layout.rangeAxisMaxValue);
             }
             else {
-                rangeAxisMaxValue.reset();
+                axisContainer.rangeAxisMaxValueInput.reset();
             }
 
             // rangeAxisMinValue
             if (isNumber(layout.rangeAxisMinValue)) {
-                rangeAxisMinValue.setValue(layout.rangeAxisMinValue);
+                axisContainer.rangeAxisMinValueInput.setValue(layout.rangeAxisMinValue);
             }
             else {
-                rangeAxisMinValue.reset();
+                axisContainer.rangeAxisMinValueInput.reset();
             }
 
             // rangeAxisSteps
             if (isNumber(layout.rangeAxisSteps)) {
-                rangeAxisSteps.setValue(layout.rangeAxisSteps);
+                axisContainer.rangeAxisStepsInput.setValue(layout.rangeAxisSteps);
             }
             else {
-                rangeAxisSteps.reset();
+                axisContainer.rangeAxisStepsInput.reset();
             }
 
             // rangeAxisDecimals
             if (isNumber(layout.rangeAxisDecimals)) {
-                rangeAxisDecimals.setValue(layout.rangeAxisDecimals);
+                axisContainer.rangeAxisDecimalsInput.setValue(layout.rangeAxisDecimals);
             }
             else {
-                rangeAxisDecimals.reset();
+                axisContainer.rangeAxisDecimalsInput.reset();
             }
 
             // range axis title
             if (isString(layout.rangeAxisTitle)) {
-                rangeAxisTitle.setValue(layout.rangeAxisTitle);
+                axisContainer.rangeAxisTitleInput.setValue(layout.rangeAxisTitle);
             }
             else {
-                rangeAxisTitle.reset();
+                axisContainer.rangeAxisTitleInput.reset();
             }
 
             // domain axis title
             if (isString(layout.domainAxisTitle)) {
-                domainAxisTitle.setValue(layout.domainAxisTitle);
+                axisContainer.domainAxisTitleInput.setValue(layout.domainAxisTitle);
             }
             else {
-                domainAxisTitle.reset();
+                axisContainer.domainAxisTitleInput.reset();
             }
 
             hideLegend.setValue(isBoolean(layout.hideLegend) ? layout.hideLegend : false);
-            hideTitle.setValue(isBoolean(layout.hideTitle) ? layout.hideTitle : false);
 
             // title
+            titleContainer.hideTitleCheckbox.setValue(isBoolean(layout.hideTitle) ? layout.hideTitle : false);
             if (isString(layout.title)) {
-                title.setValue(layout.title);
+                titleContainer.titleInput.setValue(layout.title);
             }
             else {
-                title.reset();
+                titleContainer.titleInput.reset();
+            }
+
+            // subtitle
+            subtitleContainer.hideSubtitleCheckbox.setValue(isBoolean(layout.hideSubtitle) ? layout.hideSubtitle : false);
+            if (isString(layout.subtitle)) {
+                subtitleContainer.subtitleInput.setValue(layout.subtitle);
+            }
+            else {
+                subtitleContainer.subtitleInput.reset();
             }
         },
         items: [
@@ -461,7 +261,7 @@ AggregateOptionsWindow = function(refs) {
                 style: 'margin-bottom:6px; margin-left:2px',
                 html: i18n.axes
             },
-            axes,
+            axisContainer,
             {
                 bodyStyle: 'border:0 none; padding:5px'
             },
@@ -504,24 +304,27 @@ AggregateOptionsWindow = function(refs) {
                 // cmp
                 w.showValues = showValues;
                 w.percentStackedValues = percentStackedValues;
-                w.hideEmptyRows = hideEmptyRows;
+                w.cumulativeValues = cumulativeValues;
+                w.hideEmptyRowItems = hideEmptyRowItems;
                 w.hideNaData = hideNaData;
                 w.regressionType = regressionType;
                 w.completedOnly = completedOnly;
-                w.targetLineValue = targetLineValue;
-                w.targetLineTitle = targetLineTitle;
-                w.baseLineValue = baseLineValue;
-                w.baseLineTitle = baseLineTitle;
+                w.targetLineValue = targetLineContainer.targetLineValueInput;
+                w.targetLineTitle = targetLineContainer.targetLineTitleInput;
+                w.baseLineValue = baseLineContainer.baseLineValueInput;
+                w.baseLineTitle = baseLineContainer.baseLineTitleInput;
                 w.sortOrder = sortOrder;
-                w.rangeAxisMaxValue = rangeAxisMaxValue;
-                w.rangeAxisMinValue = rangeAxisMinValue;
-                w.rangeAxisSteps = rangeAxisSteps;
-                w.rangeAxisDecimals = rangeAxisDecimals;
-                w.rangeAxisTitle = rangeAxisTitle;
-                w.domainAxisTitle = domainAxisTitle;
+                w.rangeAxisMaxValue = axisContainer.rangeAxisMaxValueInput;
+                w.rangeAxisMinValue = axisContainer.rangeAxisMinValueInput;
+                w.rangeAxisSteps = axisContainer.rangeAxisStepsInput;
+                w.rangeAxisDecimals = axisContainer.rangeAxisDecimalsInput;
+                w.rangeAxisTitle = axisContainer.rangeAxisTitleInput;
+                w.domainAxisTitle = axisContainer.domainAxisTitleInput;
                 w.hideLegend = hideLegend;
-                w.hideTitle = hideTitle;
-                w.title = title;
+                w.hideTitle = titleContainer.hideTitleCheckbox;
+                w.title = titleContainer.titleInput;
+                w.hideSubtitle = subtitleContainer.hideSubtitleCheckbox;
+                w.subtitle = subtitleContainer.subtitleInput;
             }
         }
     });

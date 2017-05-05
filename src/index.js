@@ -115,7 +115,6 @@ appManager.init(() => {
 });
 
 function initialize() {
-
     // i18n init
     var i18n = i18nManager.get();
 
