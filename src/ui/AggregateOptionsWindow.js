@@ -12,8 +12,8 @@ import { HideNaDataCheckbox } from 'd2-analysis/lib/ui/options/HideNaData';
 import { RegressionTypeSelect } from 'd2-analysis/lib/ui/options/RegressionType';
 import { SortOrderSelect } from 'd2-analysis/lib/ui/options/SortOrder';
 import { OutputTypeSelect } from 'd2-analysis/lib/ui/options/OutputType';
-import { ProgramStatusSelect } from 'd2-analysis/lib/ui/options/ProgramStatusSelect';
-import { EventStatusSelect } from 'd2-analysis/lib/ui/options/EventStatusSelect';
+import { ProgramStatusSelect } from 'd2-analysis/lib/ui/options/ProgramStatus';
+import { EventStatusSelect } from 'd2-analysis/lib/ui/options/EventStatus';
 import { HideEmptyRowItemsSelect } from 'd2-analysis/lib/ui/options/HideEmptyRowItems';
 import { CompletedOnlyCheckbox } from 'd2-analysis/lib/ui/options/CompletedOnly';
 import { AxisContainer } from 'd2-analysis/lib/ui/options/Axis';
@@ -113,6 +113,9 @@ AggregateOptionsWindow = function(refs) {
                 baseLineValue: baseLineContainer.baseLineValueInput.getValue(),
                 baseLineTitle: baseLineContainer.baseLineTitleInput.getValue(),
                 sortOrder: sortOrder.getValue(),
+                outputType: outputType.getValue(),
+                programStatus: programStatus.getValue(),
+                eventStatus: eventStatus.getValue(),
                 rangeAxisMaxValue: axisContainer.rangeAxisMaxValueInput.getValue(),
                 rangeAxisMinValue: axisContainer.rangeAxisMinValueInput.getValue(),
                 rangeAxisSteps: axisContainer.rangeAxisStepsInput.getValue(),
@@ -169,6 +172,12 @@ AggregateOptionsWindow = function(refs) {
             }
 
             sortOrder.setValue(isNumber(layout.sortOrder) ? layout.sortOrder : 0);
+
+            outputType.setValue(isString(layout.outputType) ? layout.outputType : optionConfig.getOutputType('event'));
+
+            programStatus.setValue(isString(layout.programStatus) ? layout.programStatus : optionConfig.getProgramStatus('def').id);
+
+            eventStatus.setValue(isString(layout.eventStatus) ? layout.eventStatus : optionConfig.getEventStatus('def').id);
 
             // rangeAxisMaxValue
             if (isNumber(layout.rangeAxisMaxValue)) {
@@ -306,6 +315,9 @@ AggregateOptionsWindow = function(refs) {
                 w.baseLineValue = baseLineContainer.baseLineValueInput;
                 w.baseLineTitle = baseLineContainer.baseLineTitleInput;
                 w.sortOrder = sortOrder;
+                w.outputType = outputType;
+                w.programStatus = programStatus;
+                w.eventStatus = eventStatus;
                 w.rangeAxisMaxValue = axisContainer.rangeAxisMaxValueInput;
                 w.rangeAxisMinValue = axisContainer.rangeAxisMinValueInput;
                 w.rangeAxisSteps = axisContainer.rangeAxisStepsInput;

@@ -32,6 +32,8 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
 
     t.regressionType = isString(c.regressionType) ? c.regressionType : 'NONE';
     t.outputType = isString(c.outputType) ? c.outputType : refs.optionConfig.getOutputType('event').id;
+    t.programStatus = isString(c.programStatus) ? c.programStatus : refs.optionConfig.getProgramStatus('def').id;
+    t.eventStatus = isString(c.eventStatus) ? c.eventStatus : refs.optionConfig.getEventStatus('def').id;
 
     t.hideNaData = isBoolean(c.hideNaData) ? c.hideNaData : false;
     t.showValues = isBoolean(c.showData) ? c.showData : (isBoolean(c.showValues) ? c.showValues : true);
@@ -150,8 +152,7 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
 
     var request = new Request(refs);
 
-    var defAggTypeId = optionConfig.getAggregationType('def').id,
-        displayProperty = this.displayProperty || appManager.getAnalyticsDisplayProperty();
+    var displayProperty = this.displayProperty || appManager.getAnalyticsDisplayProperty();
 
     source = source || instanceManager.analyticsEndpoint + this.getDataTypeUrl(dimensionConfig.getDefaultDataType()) + this.getProgramUrl();
 
@@ -190,9 +191,19 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             request.add('completedOnly=true');
         }
 
-        // aggregation type
+        // outputType type
         if (isString(this.outputType)) {
             request.add('outputType=' + this.outputType);
+        }
+
+        // program status
+        if (isString(this.programStatus) && this.programStatus !== optionConfig.getProgramStatus('def').id) {
+            request.add('programStatus=' + this.programStatus);
+        }
+
+        // event status
+        if (isString(this.eventStatus) && this.eventStatus !== optionConfig.getEventStatus('def').id) {
+            request.add('eventStatus=' + this.eventStatus);
         }
 
         // limit, sortOrder
