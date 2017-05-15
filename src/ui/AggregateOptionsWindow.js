@@ -11,6 +11,9 @@ import { HideLegendCheckbox } from 'd2-analysis/lib/ui/options/HideLegend';
 import { HideNaDataCheckbox } from 'd2-analysis/lib/ui/options/HideNaData';
 import { RegressionTypeSelect } from 'd2-analysis/lib/ui/options/RegressionType';
 import { SortOrderSelect } from 'd2-analysis/lib/ui/options/SortOrder';
+import { OutputTypeSelect } from 'd2-analysis/lib/ui/options/OutputType';
+import { ProgramStatusSelect } from 'd2-analysis/lib/ui/options/ProgramStatusSelect';
+import { EventStatusSelect } from 'd2-analysis/lib/ui/options/EventStatusSelect';
 import { HideEmptyRowItemsSelect } from 'd2-analysis/lib/ui/options/HideEmptyRowItems';
 import { CompletedOnlyCheckbox } from 'd2-analysis/lib/ui/options/CompletedOnly';
 import { AxisContainer } from 'd2-analysis/lib/ui/options/Axis';
@@ -40,6 +43,9 @@ AggregateOptionsWindow = function(refs) {
         targetLineContainer = TargetLineContainer(refs),
         baseLineContainer = BaseLineContainer(refs),
         sortOrder = SortOrderSelect(refs),
+        outputType = OutputTypeSelect(refs),
+        programStatus = ProgramStatusSelect(refs),
+        eventStatus = EventStatusSelect(refs),
 
         axisContainer = AxisContainer(refs),
 
@@ -60,11 +66,15 @@ AggregateOptionsWindow = function(refs) {
             percentStackedValues,
             cumulativeValues,
             hideNaData,
+            completedOnly,
             hideEmptyRowItems,
             regressionType,
             targetLineContainer,
             baseLineContainer,
-            sortOrder
+            sortOrder,
+            outputType,
+            programStatus,
+            eventStatus
         ]
     };
 
@@ -76,15 +86,6 @@ AggregateOptionsWindow = function(refs) {
             hideLegend,
             titleContainer,
             subtitleContainer
-        ]
-    };
-
-    // events
-    var events = {
-        bodyStyle: 'border:0 none',
-        style: 'margin-left:14px',
-        items: [
-            completedOnly
         ]
     };
 
@@ -244,15 +245,6 @@ AggregateOptionsWindow = function(refs) {
                 html: i18n.data
             },
             data,
-            {
-                bodyStyle: 'border:0 none; padding:5px'
-            },
-            {
-                bodyStyle: 'border:0 none; color:#222; font-size:12px; font-weight:bold',
-                style: 'margin-bottom:6px; margin-left:2px',
-                html: i18n.events
-            },
-            events,
             {
                 bodyStyle: 'border:0 none; padding:5px'
             },
