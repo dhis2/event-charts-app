@@ -58,7 +58,6 @@ AggregateOptionsWindow = function(refs) {
         completedOnly = CompletedOnlyCheckbox(refs);
 
     var data = {
-        xtype: 'container',
         bodyStyle: 'border:0 none',
         style: 'margin-left:14px',
         items: [
@@ -67,6 +66,10 @@ AggregateOptionsWindow = function(refs) {
             cumulativeValues,
             hideNaData,
             completedOnly,
+            {
+                xtype: 'container',
+                style: 'margin-top:9px'
+            },
             hideEmptyRowItems,
             regressionType,
             targetLineContainer,
@@ -84,6 +87,10 @@ AggregateOptionsWindow = function(refs) {
         style: 'margin-left:14px',
         items: [
             hideLegend,
+            {
+                xtype: 'container',
+                style: 'margin-top:7px'
+            },
             titleContainer,
             subtitleContainer
         ]
@@ -91,7 +98,7 @@ AggregateOptionsWindow = function(refs) {
 
     var window = Ext.create('Ext.window.Window', {
         title: i18n.chart_options,
-        bodyStyle: 'background-color:#fff; padding:3px',
+        bodyStyle: 'background-color:#fff; padding:2px',
         closeAction: 'hide',
         autoShow: true,
         modal: true,
@@ -250,25 +257,25 @@ AggregateOptionsWindow = function(refs) {
         items: [
             {
                 bodyStyle: 'border:0 none; color:#222; font-size:12px; font-weight:bold',
-                style: 'margin-bottom:6px; margin-left:2px',
+                style: 'margin-top:4px; margin-bottom:6px; margin-left:5px',
                 html: i18n.data
             },
             data,
             {
-                bodyStyle: 'border:0 none; padding:5px'
+                bodyStyle: 'border:0 none; padding:7px'
             },
             {
                 bodyStyle: 'border:0 none; color:#222; font-size:12px; font-weight:bold',
-                style: 'margin-bottom:6px; margin-left:2px',
+                style: 'margin-bottom:6px; margin-left:5px',
                 html: i18n.axes
             },
             axisContainer,
             {
-                bodyStyle: 'border:0 none; padding:5px'
+                bodyStyle: 'border:0 none; padding:7px'
             },
             {
                 bodyStyle: 'border:0 none; color:#222; font-size:12px; font-weight:bold',
-                style: 'margin-bottom:6px; margin-left:2px',
+                style: 'margin-bottom:6px; margin-left:5px',
                 html: i18n.general
             },
             general
