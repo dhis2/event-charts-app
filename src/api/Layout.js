@@ -32,8 +32,15 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
 
     t.regressionType = isString(c.regressionType) ? c.regressionType : 'NONE';
     t.outputType = isString(c.outputType) ? c.outputType : refs.optionConfig.getOutputType('event').id;
-    t.programStatus = isString(c.programStatus) ? c.programStatus : refs.optionConfig.getProgramStatus('def').id;
-    t.eventStatus = isString(c.eventStatus) ? c.eventStatus : refs.optionConfig.getEventStatus('def').id;
+
+    // status
+    if (isString(c.programStatus)) {
+        t.programStatus = c.programStatus;
+    }
+
+    if (isString(c.eventStatus)) {
+        t.eventStatus = c.eventStatus;
+    }
 
     t.hideNaData = isBoolean(c.hideNaData) ? c.hideNaData : false;
     t.showValues = isBoolean(c.showData) ? c.showData : (isBoolean(c.showValues) ? c.showValues : true);
