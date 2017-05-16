@@ -4,6 +4,7 @@ import './css/meringue.css';
 import 'd2-analysis/css/ui/GridHeaders.css';
 
 import arrayTo from 'd2-utilizr/lib/arrayTo';
+import isObject from 'd2-utilizr/lib/isObject';
 
 import { createChart } from 'd2-charts-api';
 
@@ -183,9 +184,10 @@ function initialize() {
     }());
 
     // windows
-    var aggregateLayoutWindow = uiManager.reg(AggregateLayoutWindow(refs), 'aggregateLayoutWindow').hide();
-
-    var aggregateOptionsWindow = uiManager.reg(AggregateOptionsWindow(refs), 'aggregateOptionsWindow').hide();
+    var windows = {
+        aggregateLayoutWindow: uiManager.reg(AggregateLayoutWindow(refs), 'aggregateLayoutWindow').hide(),
+        aggregateOptionsWindow: uiManager.reg(AggregateOptionsWindow(refs), 'aggregateOptionsWindow').hide()
+    };
 
     uiManager.reg(ui.FavoriteWindow(refs), 'favoriteWindow').hide();
 
@@ -226,8 +228,20 @@ function initialize() {
         ],
         DownloadButtonItems: ui.ChartDownloadButtonItems,
     }, {
-        getLayoutWindow: () => aggregateLayoutWindow,
-        getOptionsWindow: () => aggregateOptionsWindow
+        getLayoutWindow: function(layout) {
+            if (isObject(layout) && layout.dataType === dimensionConfig.dataType['individual_cases'] && windows.queryLayoutWindow) {
+                return windows.queryLayoutWindow;
+            }
+
+            return windows.aggregateLayoutWindow;
+        },
+        getOptionsWindow: function(layout) {
+            if (isObject(layout) && layout.dataType === dimensionConfig.dataType['individual_cases'] && windows.queryOptionsWindow) {
+                return windows.queryOptionsWindow;
+            }
+
+            return windows.aggregateOptionsWindow;
+        },
     }), 'viewport');
 }
 
