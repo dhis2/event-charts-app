@@ -180,7 +180,7 @@ AggregateOptionsWindow = function(refs) {
 
             sortOrder.setValue(isNumber(layout.sortOrder) ? layout.sortOrder : 0);
 
-            outputType.setValue(isString(layout.outputType) ? layout.outputType : optionConfig.getOutputType('event'));
+            outputType.setValue(isString(layout.outputType) ? layout.outputType : optionConfig.getOutputType('event').id);
 
             programStatus.setValue(isString(layout.programStatus) ? layout.programStatus : optionConfig.getProgramStatus('def').id);
 
