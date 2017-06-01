@@ -159,6 +159,8 @@ function initialize() {
 
     uiManager.enableConfirmUnload();
 
+    uiManager.disallowProgramIndicators = true;
+
     // intro
     uiManager.introHtmlIsAsync = true;
 
