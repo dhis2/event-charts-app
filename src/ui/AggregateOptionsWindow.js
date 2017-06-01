@@ -140,8 +140,8 @@ AggregateOptionsWindow = function(refs) {
             layout = layout || {};
 
             showValues.setValue(isBoolean(layout.showValues) ? layout.showValues : true);
-            percentStackedValues.setValue(isBoolean(layout.percentStackedValues) ? layout.percentStackedValues : true);
-            cumulativeValues.setValue(isBoolean(layout.cumulativeValues) ? layout.cumulativeValues : true);
+            percentStackedValues.setValue(isBoolean(layout.percentStackedValues) ? layout.percentStackedValues : false);
+            cumulativeValues.setValue(isBoolean(layout.cumulativeValues) ? layout.cumulativeValues : false);
             hideEmptyRowItems.setValue(isString(layout.hideEmptyRowItems) ? layout.hideEmptyRowItems : 'NONE');
             hideNaData.setValue(isBoolean(layout.hideNaData) ? layout.hideNaData : false);
             regressionType.setValue(isString(layout.regressionType) ? layout.regressionType : 'NONE');
