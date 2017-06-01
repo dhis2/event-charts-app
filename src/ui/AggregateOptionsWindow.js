@@ -291,7 +291,7 @@ AggregateOptionsWindow = function(refs) {
             {
                 text: '<b>' + i18n.update + '</b>',
                 handler: function() {
-                        instanceManager.getReport();
+                    instanceManager.getReport();
 
                     window.hide();
                 }
