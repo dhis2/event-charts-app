@@ -66,6 +66,8 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.domainAxisTitle = isString(c.domainAxisLabel) && !isEmpty(c.domainAxisLabel) ? c.domainAxisLabel :
         (isString(c.domainAxisTitle) && !isEmpty(c.domainAxisTitle) ? c.domainAxisTitle : null);
 
+    t.showAsEpiCurve = isBoolean(c.showAsEpiCurve) ? c.showAsEpiCurve : false;
+
     // value, aggregation type
     if (isObject(c.value) && isString(c.value.id)) {
         t.value = c.value;
