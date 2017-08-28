@@ -22,6 +22,7 @@ import { SubtitleContainer } from 'd2-analysis/lib/ui/options/Subtitle';
 import { AggregationTypeSelect } from 'd2-analysis/lib/ui/options/AggregationType';
 import { TargetLineContainer } from 'd2-analysis/lib/ui/options/TargetLine';
 import { BaseLineContainer } from 'd2-analysis/lib/ui/options/BaseLine';
+import { ShowAsEpiCurve } from 'd2-analysis/lib/ui/options/ShowAsEpiCurve';
 
 export var AggregateOptionsWindow;
 
@@ -48,6 +49,8 @@ AggregateOptionsWindow = function(refs) {
         eventStatus = EventStatusSelect(refs),
 
         axisContainer = AxisContainer(refs),
+
+        showAsEpiCurve = ShowAsEpiCurve(refs),
 
         hideLegend = HideLegendCheckbox(refs),
         titleContainer = TitleContainer(refs),
@@ -78,6 +81,15 @@ AggregateOptionsWindow = function(refs) {
             outputType,
             programStatus,
             eventStatus
+        ]
+    };
+
+    // style
+    var style = {
+        bodyStyle: 'border:0 none',
+        style: 'margin-left:14px',
+        items: [
+            showAsEpiCurve
         ]
     };
 
@@ -133,7 +145,8 @@ AggregateOptionsWindow = function(refs) {
                 hideTitle: titleContainer.hideTitleCheckbox.getValue(),
                 title: titleContainer.titleInput.getValue(),
                 hideSubtitle: subtitleContainer.hideSubtitleCheckbox.getValue(),
-                subtitle: subtitleContainer.subtitleInput.getValue()
+                subtitle: subtitleContainer.subtitleInput.getValue(),
+                showAsEpiCurve: showAsEpiCurve.getValue()
             };
         },
         setOptions: function(layout) {
@@ -253,6 +266,9 @@ AggregateOptionsWindow = function(refs) {
             else {
                 subtitleContainer.subtitleInput.reset();
             }
+
+            // show as Epi Curve
+            showAsEpiCurve.setValue(isBoolean(layout.showAsEpiCurve) ? layout.showAsEpiCurve : false);
         },
         items: [
             {
@@ -270,6 +286,15 @@ AggregateOptionsWindow = function(refs) {
                 html: i18n.axes
             },
             axisContainer,
+            {
+                bodyStyle: 'border:0 none; padding:7px'
+            },
+            {
+                bodyStyle: 'border:0 none; color:#222; font-size:12px; font-weight:bold',
+                style: 'margin-bottom:6px; margin-left:5px',
+                html: i18n.style
+            },
+            style,
             {
                 bodyStyle: 'border:0 none; padding:7px'
             },
@@ -336,6 +361,7 @@ AggregateOptionsWindow = function(refs) {
                 w.title = titleContainer.titleInput;
                 w.hideSubtitle = subtitleContainer.hideSubtitleCheckbox;
                 w.subtitle = subtitleContainer.subtitleInput;
+                w.showAsEpiCurve = showAsEpiCurve;
             }
         }
     });
