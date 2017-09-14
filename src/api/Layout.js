@@ -231,10 +231,8 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             request.add('eventStatus=' + this.eventStatus);
         }
 
-        // limit, sortOrder
-        if (isNumber(this.topLimit) && this.dataType === dimensionConfig.dataType['aggregated_values']) {
-            request.add('limit=' + this.topLimit);
-
+        // sort order
+        if (isNumber(this.sortOrder)) {
             var sortOrder = isNumber(this.sortOrder) ? this.sortOrder : 1;
 
             request.add('sortOrder=' + (sortOrder < 0 ? 'ASC' : 'DESC'));
