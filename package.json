@@ -1,6 +1,6 @@
 {
   "name": "event-charts-app",
-  "version": "27.0.38",
+  "version": "27.0.39",
   "description": "DHIS 2 event charts app",
   "main": "index.html",
   "scripts": {
