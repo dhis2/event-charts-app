@@ -66,6 +66,8 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
     t.domainAxisTitle = isString(c.domainAxisLabel) && !isEmpty(c.domainAxisLabel) ? c.domainAxisLabel :
         (isString(c.domainAxisTitle) && !isEmpty(c.domainAxisTitle) ? c.domainAxisTitle : null);
 
+    t.noSpaceBetweenColumns = isBoolean(c.noSpaceBetweenColumns) ? c.noSpaceBetweenColumns : false;
+
     // value, aggregation type
     if (isObject(c.value) && isString(c.value.id)) {
         t.value = c.value;
@@ -96,7 +98,7 @@ Layout.prototype = d2aLayout.prototype;
 Layout.prototype.val = function() {
     var t = this;
 
-    return t.program && t.programStage && t.columns && t.rows;
+    return (t.program && t.programStage && t.columns && t.rows) ? this : null;
 };
 
 Layout.prototype.clone = function() {
@@ -229,10 +231,8 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             request.add('eventStatus=' + this.eventStatus);
         }
 
-        // limit, sortOrder
-        if (isNumber(this.topLimit) && this.dataType === dimensionConfig.dataType['aggregated_values']) {
-            request.add('limit=' + this.topLimit);
-
+        // sort order
+        if (isNumber(this.sortOrder)) {
             var sortOrder = isNumber(this.sortOrder) ? this.sortOrder : 1;
 
             request.add('sortOrder=' + (sortOrder < 0 ? 'ASC' : 'DESC'));
@@ -310,7 +310,8 @@ Layout.prototype.data = function(source, format) {
     request.setError(function(r) {
 
         // 409
-        if (isObject(r) && r.status == 409) {
+        // DHIS2-2020: 503 error (perhaps analytics maintenance mode)
+        if (isObject(r) && (r.status == 409 || r.status == 503)) {
             uiManager.unmask();
 
             if (isString(r.responseText)) {

@@ -259,6 +259,20 @@ function initialize() {
         },
     }), 'viewport');
 
+    uiManager.onResize(function(cmp, width) {
+        if (instanceManager.isStateCurrent()) {
+            if (uiManager.get('chart')) {
+                var body = uiManager.getUpdateComponent().body,
+                    buffer = 12;
+
+                var width = body.getWidth() - buffer,
+                    height = body.getHeight() - buffer;
+
+                uiManager.get('chart').setSize(width, height, {duration: 50});
+            }
+        }
+    });
+
     // subscribe functions to viewport regions to update ui on renew
     uiManager.subscribe('centerRegion', () => {
         if (appManager.userFavorites.length) {
@@ -270,7 +284,7 @@ function initialize() {
         }
     });
 
-    uiManager.update();
+    //uiManager.update();
 }
 
 global.refs = refs;
