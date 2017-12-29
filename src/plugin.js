@@ -108,6 +108,7 @@ function render(plugin, layout) {
     // instance manager
     instanceManager.setFn(function(_layout) {
         var el = _layout.el;
+        var element = document.getElementById(el);
         var response = _layout.getResponse();
         var extraOptions = {
             dashboard: instanceManager.dashboard
@@ -119,9 +120,17 @@ function render(plugin, layout) {
         uiManager.reg(chart, 'chart');
 
         // dashboard item resize
-        document.getElementById(el).setViewportWidth = function (width) {
-            chart.setSize(width, undefined, {duration: 100});
+		element.setViewportWidth = function (width) {
+			chart.setSize(width, undefined, {duration: 50});
         };
+
+        element.setViewportHeight = function (height) {
+			chart.setSize(undefined, height, {duration: 50});
+        };
+
+        element.setViewportSize = function (width, height) {
+			chart.setSize(width, height, {duration: 50});
+		};
 
         // mask
         uiManager.unmask();
