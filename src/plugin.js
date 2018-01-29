@@ -152,4 +152,4 @@ function render(plugin, layout) {
     }
 };
 
-global.eventChartPlugin = new util.Plugin({ refs, inits, renderFn: render });
+global.eventChartPlugin = new util.Plugin({ refs, inits, renderFn: render, type: 'EVENT_CHART' });
