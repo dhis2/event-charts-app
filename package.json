@@ -1,6 +1,6 @@
 {
   "name": "event-charts-app",
-  "version": "29.0.11",
+  "version": "29.0.12",
   "description": "Event charts app",
   "main": "index.html",
   "scripts": {
