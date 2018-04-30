@@ -1,6 +1,6 @@
 {
   "name": "event-charts-app",
-  "version": "29.0.1",
+  "version": "29.0.13",
   "description": "Event charts app",
   "main": "index.html",
   "scripts": {
@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/dhis2/event-charts-app#readme",
   "dependencies": {
-    "d2-analysis": "29.0.1",
-    "d2-charts-api": "29.0.0",
+    "d2-analysis": "29.0.21",
+    "d2-charts-api": "29.0.1",
     "d2-utilizr": "0.2.13"
   },
   "devDependencies": {
