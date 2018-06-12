@@ -1,6 +1,7 @@
 *.iml
 *.log
 .idea
+.vscode
 target/
 node_modules/
 build/
