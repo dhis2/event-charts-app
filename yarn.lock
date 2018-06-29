@@ -1277,9 +1277,9 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-d2-analysis@30.0.3:
-  version "30.0.3"
-  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-30.0.3.tgz#47e9102dc1be79f9d1fc35ed704e5a1104469caa"
+d2-analysis@30.0.4:
+  version "30.0.4"
+  resolved "https://registry.yarnpkg.com/d2-analysis/-/d2-analysis-30.0.4.tgz#f701b5df9f2bf077eb702aa8a61141fdd2627871"
   dependencies:
     d2-utilizr "^0.2.16"
     jquery "2.1.4"
@@ -3207,10 +3207,6 @@ lodash@^3.3.1:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.17.3:
-  version "4.17.10"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
-
 lodash@^4.2.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
@@ -3424,12 +3420,6 @@ negotiator@0.6.1:
 neo-async@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
-
-no-case@^2.2.0:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
-  dependencies:
-    lower-case "^1.1.1"
 
 "node-libs-browser@>= 0.4.0 <=0.6.0":
   version "0.6.0"
