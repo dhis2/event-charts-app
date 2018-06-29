@@ -8,8 +8,8 @@ import arrayTo from 'd2-utilizr/lib/arrayTo';
 import isObject from 'd2-utilizr/lib/isObject';
 
 import { createChart } from 'd2-charts-api';
+
 import { api, table, manager, config, ui, init, override, ux } from 'd2-analysis';
-import { CKEditor } from 'd2-analysis/lib/ux/CKEditor';
 
 import { Dimension } from './api/Dimension';
 import { Layout } from './api/Layout';
@@ -57,9 +57,6 @@ var appManager = new manager.AppManager(refs);
 appManager.sessionName = 'eventchart';
 appManager.apiVersion = 29;
 refs.appManager = appManager;
-
-    // CKEditor
-CKEditor(refs);
 
     // calendar manager
 var calendarManager = new manager.CalendarManager(refs);
