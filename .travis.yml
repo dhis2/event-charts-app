@@ -1,9 +1,21 @@
 language: node_js
 node_js:
 - '8'
+before_script:
+- npm install --global @dhis2/deploy-build
 script:
 - npm run build
-- npm run deploy
+deploy:
+- provider: script
+  script: deploy-build
+  skip_cleanup: true
+  on:
+    all_branches: true
+- provider: script
+  script: publish-build
+  skip_cleanup: true
+  on:
+    tags: true
 cache:
   yarn: true
   directories:
