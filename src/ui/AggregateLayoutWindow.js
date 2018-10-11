@@ -89,9 +89,17 @@ AggregateLayoutWindow = function(refs) {
         filter.setHeight(defaultHeight - fixedFilterHeight);
     };
 
-    timeFieldStore.addDefaultData = function() {
+    timeFieldStore.addDefaultData = function(programType) {
         if (!this.getById(defaultTimeFieldId)) {
-            this.add(optionConfig.getTimeFieldRecords());
+            const timeFieldOptions = optionConfig.getTimeFieldRecords();
+
+            if (programType === 'WITH_REGISTRATION') {
+                this.add(timeFieldOptions);
+            } else {
+                this.add(
+                    timeFieldOptions.filter(r => r.id.match(/^(EVENT_DATE|CREATED|LAST_UPDATED)$/))
+                );
+            }
         }
     };
 
@@ -347,8 +355,8 @@ AggregateLayoutWindow = function(refs) {
         editable: false,
         store: timeFieldStore,
         value: defaultTimeFieldId,
-        setDefaultData: function() {
-            timeFieldStore.addDefaultData();
+        setDefaultData: function(programType) {
+            timeFieldStore.addDefaultData(programType);
             this.setValue(defaultTimeFieldId);
         },
         setDefaultDataIf: function() {
@@ -356,10 +364,10 @@ AggregateLayoutWindow = function(refs) {
                 this.setDefaultData();
             }
         },
-        resetData: function() {
+        resetData: function(programType) {
             timeFieldStore.removeAll();
             this.clearValue();
-            this.setDefaultData();
+            this.setDefaultData(programType);
         },
     });
 
