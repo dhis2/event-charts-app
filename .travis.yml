@@ -1,20 +1,24 @@
 language: node_js
 node_js:
-- '6'
+- '8'
+before_script:
+- npm install --global @dhis2/deploy-build
 script:
 - npm run build
-cache:
-  yarn: true
-  directories:
-  - node_modules
-after_success:
-- if ( [ "$TRAVIS_BRANCH" == "master" ] || [ ! -z "$TRAVIS_TAG" ] ) && [ "$TRAVIS_REPO_SLUG"
-  == "dhis2/event-charts-app" ]  &&  [ "$TRAVIS_PULL_REQUEST" == "false" ] ; then
-  mvn clean deploy --settings deploy/settings.xml && exit 0; fi
+deploy:
+- provider: script
+  script: deploy-build
+  skip_cleanup: true
+  on:
+    all_branches: true
+- provider: script
+  script: publish-build
+  skip_cleanup: true
+  on:
+    tags: true
 env:
   global:
-  - secure: PsSwxv+vxDKvE3deF1z3lawblPTmrP7iBNlKH1acUj0eEifI0K5OlOa/veW41jVtK3docLV5M2y6XphqIowxJujoXTLB1ncIwNmuXKSg1l8Yz8DU/CWfjDmyFSpoRjUeO/zRqQwgaoGwlVQQyod3fGEaZvB2AFTXN7GevsEYkvFX31sa6TFE9PMNEeBISj0x0crSNV7ohiu/mgK/O4o3qcL0VO+RuCeQWcJhzPKwitetDdeV0/IQ3ur9AMuL+liRkFXGD2kMgrQu5J9O2N25hzsM8c0IwuiEKi1tOSYRBM166Ne1CzXBp0/cheT1mkdLC0+VdDOgTX6SItMf+jYZDPHEGA5pDUvitmuu7HFoyH+0z4a8I7Hha44gQGln2211h8fxosh+rZ5WtsG1fQy+zB6TY4ejM5EnF4B9UzKhzTMr+njEyeHLQQsOehbhdpNiZNS+TToI2sZ1/c+SldiNLxHJGQ7solR9mFJRWkjNBloBjrL4/O0rYjZIWRJxQuEh52XeoNXsLZXjkgSKLHjl3yEWkOKwFPamNTEkF/3bzl6V0KMAPmTM4yoQLlAsU0l3h+7GedKj5joneSDF6uD6F0WLHZLTIil4sn+h9CPsF5Jyu9pGu65ss8oXjGZJ7Hg1RHzXNrHBgn7+uX8XT6MwLxY5ysElh0xkCLoON2kcWOU=
-  - secure: vF57oICZjGzERtvqQae6KEIWBTPdN/i9NM98QaNjzakatWK4oLT/Igh67bMEM3jwfLg2l7DZq/sDQQbVaB0AdeNQIE0u/xxMYB/DbjRZKGKe1cTB5sRx7YuCkkI+p8COSoNTuxa00voeXxw+5ly0WkskArBHUH6tFJEGldr5xowFfdp8oo0V/SatllkmH0Vhv6RREhws8vp8T4nO/7I+cQk7Ej3yLVFgz6OcsHIZJ3Z47qd6bhQ/tSMJ1F2wqGizSmSgrjVG0iVb+E5l2+XUNmLEJImkHLI39i9QB0YEUf4VqfNIkuyrm1O/iVBbukAykZeQJOLz7ZOeFXHl7Orr06cwADN3T2b9Wy6H9R4vgyRIbp37j+slSvEvRXcmCbmZ8JeWGwgjLZx6RrTYUNvmIt2ikaGHgmeQKHv11IZ/1MYiyXhg2rd3R/WQjowSS9veZ42nwkUHemr5xRZBpWShvUToq2cJEkOvnTpZVVi/AFVQX3nfxkZNPJG7kY7EXgSpf6EF2Ut461HkHLBbQiuzArOL+uNacFmltc9DKMfLcUSjh2xeGpAblI8Z8WlUuq0BOVWCBtlckgassVjPCd5RW/M69zONbf/OkMpFe7auIvs+WLjfNxxSnlqZhVLT4ridZK8iBbeosGbyoqBhC9OiUewY3p8mBvLyH/N7M8cWvh4=
+    secure: VIhKQbEhZQmmHQYEcx2g9F+cJO0nwCrpEX4KoryS8kSRn+diSFzACrJpcTLXV8QnjUvrkxIOWXhGLFzmUvt0owxt6f8XSBL7gPAb2PdymJR1gupM/8Lb9SKuy6658og0qo2n1EXkjpWuvFHzTNhfCsalAqLlvqHuzt/GUDvLTg4S/SSizWhSei+BhVVPIYIjxeWvc1fig1QQeCCVC/zJBB3SPQ5gIMWtpRv/C9R73oly80LO2bSagj3C7QdYILNR3/XkkH283+SDmtJX8HsjUNWHS6TZXj9Gfq3lcFsq1bpxiTP+WcaBhhpmbAI4mdQY0LPtcuDId+N81Qo0gdwjKaW/FdmGyuEWYwTJ1TPxQU2aVtfRDZ2Xe9Gl9if2ISjuedYG5/lggf3O3GskB4kNibILU7/QhDcRqFWoryImUMnV+ojEGGqohdvIpunj1FCraYPJj5sXcX7rO0uZsc4Mxnx8BzClvSctOcest/3P0z/elJ+qCjYyyjKlJbPpi4dZrIf5WQOBE8rKycHQgeaRr8lTPCDEycKuefRzNIPhuQYtYbcQYfyVVFBqoIlrzNkVVy/idKsA/yCBb7T7hn5WQggyk6q7gKDVTz8Lxmsb2Tl/iI3qTsTNm1sQn690R8XUFu8NHCt/BCGVdglZKePFccaokQMsrnQcyvpHD9PcDig=
 notifications:
   slack:
     secure: eLSjfRc1IGE/AB5+jCZ8d6K+RjoXG/+qf8uc3Nj0/eNSpz6gufB8Lg1CGueNCriiB9E7UZWkQPPTd4xLV5oqshpiIvaJ2zYiCx0JzYGt+mTcCgNBe7Qzu5zfN/SMM/+/FsH5DPp/tT/qab8s/HvGhchELJ7Xuhruf3RDtGEjgI7BcpFgSey9X86K+UrDFrrpl1d7iU9Y2SWNWfHYei0fh98p4nij/xLpMv8RlCsQZmJPvV8/b1FtR3EuaAjcoEGQG/WOKv40RQg+sBEJeM1InWH8zrl8BTgykfvobiGbgMNNbUtLB0fImLaJhvw7MzAyzaFReh17gg8m/jiJ3pG2wBdVTYjQK02OLA19TIoiG2MVLZnPnMIK8VAXq14Z1njBtC6He83AmLGQfzM9p019nMss29mCNMWZFe4DzgRHeHYIG6g2rRF1I+7dws03F+DOcsUwEOT8ECUHrd4FVWoNNQyxW0ViMVH6LnweBVxrTidY4v8o2F/mZy865nvvQibjeypaljOJE3yGTZtvkDppn3xup0YGfr1HDrohtSQB5gdQcE1l3SJBcc27CFbWZi1YXOnzL2jHFB7SYM47sR9n+jJ5Kg7IZlAj/LrMQZj/IsO2BbE438rtWQm2y77vdmMz2OhEjtciX/bIKkh32yxp+GqWDQBKRZHMPBtpqXPZUXw=
