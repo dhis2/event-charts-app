@@ -1,5 +1,5 @@
 {
-  "name": "event-charts-app",
+  "name": "event-visualizer-app",
   "version": "29.0.17",
   "description": "Event charts app",
   "main": "index.html",
