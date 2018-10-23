@@ -16,10 +16,6 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-cache:
-  yarn: true
-  directories:
-  - node_modules
 env:
   global:
     secure: VIhKQbEhZQmmHQYEcx2g9F+cJO0nwCrpEX4KoryS8kSRn+diSFzACrJpcTLXV8QnjUvrkxIOWXhGLFzmUvt0owxt6f8XSBL7gPAb2PdymJR1gupM/8Lb9SKuy6658og0qo2n1EXkjpWuvFHzTNhfCsalAqLlvqHuzt/GUDvLTg4S/SSizWhSei+BhVVPIYIjxeWvc1fig1QQeCCVC/zJBB3SPQ5gIMWtpRv/C9R73oly80LO2bSagj3C7QdYILNR3/XkkH283+SDmtJX8HsjUNWHS6TZXj9Gfq3lcFsq1bpxiTP+WcaBhhpmbAI4mdQY0LPtcuDId+N81Qo0gdwjKaW/FdmGyuEWYwTJ1TPxQU2aVtfRDZ2Xe9Gl9if2ISjuedYG5/lggf3O3GskB4kNibILU7/QhDcRqFWoryImUMnV+ojEGGqohdvIpunj1FCraYPJj5sXcX7rO0uZsc4Mxnx8BzClvSctOcest/3P0z/elJ+qCjYyyjKlJbPpi4dZrIf5WQOBE8rKycHQgeaRr8lTPCDEycKuefRzNIPhuQYtYbcQYfyVVFBqoIlrzNkVVy/idKsA/yCBb7T7hn5WQggyk6q7gKDVTz8Lxmsb2Tl/iI3qTsTNm1sQn690R8XUFu8NHCt/BCGVdglZKePFccaokQMsrnQcyvpHD9PcDig=
