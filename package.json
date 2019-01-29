@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/dhis2/event-charts-app#readme",
   "dependencies": {
-    "d2-analysis": "31.0.0",
+    "d2-analysis": "31.0.4",
     "d2-charts-api": "29.0.1",
     "d2-utilizr": "0.2.13"
   },
@@ -44,6 +44,7 @@
     "eslint-config-dhis2": "0.0.5",
     "eslint-plugin-react": "3.3.1",
     "img-loader": "^1.2.2",
+    "json-loader": "^0.5.7",
     "sass-loader": "7",
     "style-loader": "0.12.3",
     "url-loader": "^0.5.7",
