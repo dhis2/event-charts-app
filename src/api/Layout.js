@@ -77,6 +77,11 @@ export var Layout = function(refs, c, applyConfig, forceApplyConfig) {
         }
     }
 
+    // timeField
+    if (isString(c.timeField)) {
+        t.timeField = c.timeField;
+    }
+
     // paging
     if (isObject(c.paging) && isNumeric(c.paging.pageSize) && isNumeric(c.paging.page)) {
         t.paging = c.paging;
@@ -247,6 +252,11 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
             }
         }
 
+        // timeField
+        if (this.timeField) {
+            request.add('timeField=' + this.timeField);
+        }
+
         // collapse data items
         if (this.collapseDataDimensions) {
             request.add('collapseDataDimensions=true');
@@ -288,10 +298,18 @@ Layout.prototype.req = function(source, format, isSorted, isTableLayout, isFilte
         request.add('tableLayout=true');
 
         // columns
-        request.add('columns=' + this.getDimensionNames(false, false, this.columns).join(';'));
+        //request.add('columns=' + this.getDimensionNames(false, false, this.columns).join(';'));
+        request.add('columns=' + this.getDimensions(false, false, this.columns)
+			.filter(function(dim) { return dim !== 'dy' })
+			.map(function(dim) { return dim.dimension; })
+			.join(';'));
 
         // rows
-        request.add('rows=' + this.getDimensionNames(false, false, this.rows).join(';'));
+        //request.add('rows=' + this.getDimensionNames(false, false, this.rows).join(';'));
+        request.add('rows=' + this.getDimensions(false, false, this.rows)
+			.filter(function(dim) { return dim !== 'dy' })
+			.map(function(dim) { return dim.dimension; })
+			.join(';'));
 
         // hide empty columns
         if (this.hideEmptyColumns) {

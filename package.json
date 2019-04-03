@@ -1,6 +1,6 @@
 {
-  "name": "event-charts-app",
-  "version": "29.0.2",
+  "name": "event-visualizer-app",
+  "version": "32.0.0",
   "description": "Event charts app",
   "main": "index.html",
   "scripts": {
@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/dhis2/event-charts-app#readme",
   "dependencies": {
-    "d2-analysis": "29.0.2",
-    "d2-charts-api": "29.0.0",
+    "d2-analysis": "32.0.3",
+    "d2-charts-api": "29.0.1",
     "d2-utilizr": "0.2.13"
   },
   "devDependencies": {
@@ -43,12 +43,10 @@
     "eslint": "1.3.1",
     "eslint-config-dhis2": "0.0.5",
     "eslint-plugin-react": "3.3.1",
-    "file-loader": "0.8.5",
     "img-loader": "^1.2.2",
-    "node-sass": "3.4.2",
-    "sass-loader": "2.0.1",
+    "json-loader": "^0.5.7",
+    "sass-loader": "7",
     "style-loader": "0.12.3",
-    "susy": "2.2.5",
     "url-loader": "^0.5.7",
     "webpack": "1.12.9",
     "webpack-dev-server": "1.14.0"

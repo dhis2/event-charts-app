@@ -37,14 +37,6 @@
  * General
  *--------------------------------------------------------------------------*/
 
-body {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
 
 body,
 .x-body,
@@ -585,6 +577,14 @@ body,
 }
 .x-menu-body {
 	padding: 0;
+}
+.x-box-inner {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .x-menu-body .x-box-inner {
 	background-color: #fafafa;
@@ -1394,4 +1394,119 @@ body,
 
 .ns-panel-title-east-default .x-panel-body {
     border-left: 0;
+}
+
+/* Favorite */
+
+.eastPanel .favorite-icon button {
+    padding: 0px;
+    border: 0px;
+    cursor: pointer;
+    background-color: #FFF;
+}
+
+.eastPanel .favorite-inner {
+    display: none;
+}
+
+.eastPanel .favorite-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.eastPanel .favorite-enabled {
+    background-image: url(../images/favorite-enabled.png);
+    background-repeat: no-repeat;
+    background-position: 2px 2px;
+}
+
+.eastPanel .favorite-disabled {
+    background-image: url(../images/favorite-disabled.png);
+    background-repeat: no-repeat;
+    background-position: 2px 2px;
+}
+
+/* Subscriptions */
+
+.eastPanel .subscriber-icon button {
+    padding: 0px;
+    border: 0px;
+    cursor: pointer;
+    background-color: #FFF;
+}
+
+.eastPanel .subscriber-inner {
+    display: none;
+}
+
+.eastPanel .subscriber-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+}
+
+.eastPanel .subscriber-enabled {
+    background-image: url(../images/subscriber-enabled.png);
+    background-repeat: no-repeat;
+    background-position: 2px 2px;
+}
+
+.eastPanel .subscriber-disabled {
+    background-image: url(../images/subscriber-disabled.png);
+    background-repeat: no-repeat;
+    background-position: 2px 2px;
+}
+
+/* Mentions */
+
+.mentions {
+	background-color: white;
+	padding: 2px;
+	max-height: 220px;
+	box-shadow: rgb(136, 136, 136) -1px -1px 4px 0px;
+}
+
+.mentions > div {
+	max-height: 220px;
+}
+.mentions, .mentions div {
+	border: none;
+}
+
+.mentions td:hover {
+	color: #1C3974;
+	background-color: #efefef;
+}
+
+.mentions td {
+	color: #3162C5;
+	padding: 1px;
+}
+
+.mentions td label {
+	cursor: pointer;
+}
+.mentions .mentionsTitle{
+	font-weight: bold;
+	width: 300px;
+}
+
+.mentions table{
+	overflow-y: auto;
+	display: block;
+	max-height: 295px;
+}
+
+.markdown {
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+
+.markdown strong {
+  font-weight: bold;
+}
+
+.markdown em {
+  font-style: italic;
 }
