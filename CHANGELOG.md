@@ -1,3 +1,10 @@
+## [33.0.6](https://github.com/dhis2/event-charts-app/compare/v33.0.5...v33.0.6) (2020-12-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([71b2126](https://github.com/dhis2/event-charts-app/commit/71b212618a79c83ed0473657d716c7d531bef621))
+
 ## [33.0.5](https://github.com/dhis2/event-charts-app/compare/v33.0.4...v33.0.5) (2020-12-21)
 
 
