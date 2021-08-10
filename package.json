@@ -1,6 +1,6 @@
 {
   "name": "event-visualizer-app",
-  "version": "33.0.15",
+  "version": "33.0.16",
   "description": "Event charts app",
   "main": "index.html",
   "scripts": {
