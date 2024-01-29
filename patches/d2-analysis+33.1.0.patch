@@ -1,0 +1,44 @@
+diff --git a/node_modules/d2-analysis/lib/ui/ChartDownloadButtonItems.js b/node_modules/d2-analysis/lib/ui/ChartDownloadButtonItems.js
+index 54ec8c6..2100864 100644
+--- a/node_modules/d2-analysis/lib/ui/ChartDownloadButtonItems.js
++++ b/node_modules/d2-analysis/lib/ui/ChartDownloadButtonItems.js
+@@ -20,6 +20,7 @@ exports.ChartDownloadButtonItems = ChartDownloadButtonItems = function ChartDown
+         style: 'padding:7px 5px 5px 7px; font-weight:bold'
+     }, {
+         text: i18n.image_png + ' (.png)',
++        cls: 'push-analytics-download-as-png-menu-item',
+         iconCls: 'ns-menu-item-image',
+         handler: function handler() {
+             uiManager.submitSvgForm('png', getFilename());
+diff --git a/node_modules/d2-analysis/lib/ui/FavoriteButton.js b/node_modules/d2-analysis/lib/ui/FavoriteButton.js
+index c08b594..0848e28 100644
+--- a/node_modules/d2-analysis/lib/ui/FavoriteButton.js
++++ b/node_modules/d2-analysis/lib/ui/FavoriteButton.js
+@@ -27,6 +27,7 @@ exports.FavoriteButton = FavoriteButton = function FavoriteButton(c) {
+ 
+     return Ext.create('Ext.button.Button', {
+         text: i18n.favorites,
++        cls: 'push-analytics-favorites-dropdown-menu-button',
+         menu: {},
+         handler: function handler(b) {
+             b.menu = Ext.create('Ext.menu.Menu', {
+@@ -40,6 +41,7 @@ exports.FavoriteButton = FavoriteButton = function FavoriteButton(c) {
+ 
+                     var newItem = Ext.create('Ext.menu.Item', {
+                         text: getTitle(i18n.new_),
++                        cls: 'push-analytics-new-events-chart-menu-item',
+                         iconCls: 'ns-menu-item-favorite-new',
+                         disabled: !instanceManager.isStateCurrent(),
+                         handler: function handler() {
+diff --git a/node_modules/d2-analysis/lib/ui/Viewport.js b/node_modules/d2-analysis/lib/ui/Viewport.js
+index 4381d4c..0647b19 100644
+--- a/node_modules/d2-analysis/lib/ui/Viewport.js
++++ b/node_modules/d2-analysis/lib/ui/Viewport.js
+@@ -264,6 +264,7 @@ exports.Viewport = Viewport = function Viewport(refs, cmp, config) {
+ 
+     var downloadButton = Ext.create('Ext.button.Button', {
+         text: i18n.download,
++        cls: 'push-analytics-download-dropdown-menu-button',
+         disabled: true,
+         menu: {},
+         handler: function handler(b) {
