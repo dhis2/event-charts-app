@@ -67,7 +67,7 @@
       "dhis": {
         "href": "..",
         "auth": "admin:district",
-        "devHref": "https://test.e2e.dhis2.org/analytics-dev"
+        "devHref": "http://localhost:8080"
       }
     }
   }
