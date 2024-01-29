@@ -1,3 +1,10 @@
+## [33.0.56](https://github.com/dhis2/event-charts-app/compare/v33.0.55...v33.0.56) (2024-01-29)
+
+
+### Bug Fixes
+
+* patch d2-analysis so elements have relevant class-names for push-analytics ([#1032](https://github.com/dhis2/event-charts-app/issues/1032)) ([a844a6b](https://github.com/dhis2/event-charts-app/commit/a844a6baa1aa8d6288e174205721669719b94399))
+
 ## [33.0.55](https://github.com/dhis2/event-charts-app/compare/v33.0.54...v33.0.55) (2023-09-13)
 
 
