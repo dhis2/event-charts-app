@@ -1,3 +1,10 @@
+# [33.1.0](https://github.com/dhis2/event-charts-app/compare/v33.0.57...v33.1.0) (2024-03-01)
+
+
+### Features
+
+* add push analytics instructions ([94ca03f](https://github.com/dhis2/event-charts-app/commit/94ca03f4b0a8844beca214089dc9f233a9ee055c))
+
 ## [33.0.57](https://github.com/dhis2/event-charts-app/compare/v33.0.56...v33.0.57) (2024-02-28)
 
 
