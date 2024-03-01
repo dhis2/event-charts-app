@@ -1,0 +1,27 @@
+{
+    "version": "0.0.1",
+    "showVisualization": {
+        "strategy": "navigateToUrl",
+        "steps": [
+            { "goto": "{{appUrl}}?id={{id}}" },
+            { "waitForSelector": "svg.highcharts-root" }
+        ]
+    },
+    "triggerDownload": {
+        "strategy": "useUiElements",
+        "steps": [
+            { "click": ".push-analytics-download-dropdown-menu-button" },
+            { "click": ".push-analytics-download-as-png-menu-item" }
+        ]
+    },
+    "obtainDownloadArtifact": {
+        "strategy": "interceptFileDownload"
+    },
+    "clearVisualization": {
+        "strategy": "useUiElements",
+        "steps": [
+            { "click": ".push-analytics-favorites-dropdown-menu-button" },
+            { "click": ".push-analytics-new-events-chart-menu-item" }
+        ]
+    }
+}
