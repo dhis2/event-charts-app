@@ -4,7 +4,6 @@
   "description": "Event charts app",
   "main": "index.html",
   "scripts": {
-    "postinstall": "patch-package",
     "lint": "./node_modules/eslint/bin/eslint.js src `git diff --cached --name-only | grep \\.js$`",
     "validate": "npm ls --depth 0",
     "prestart": "d2-manifest package.json manifest.webapp",
@@ -28,7 +27,7 @@
   },
   "homepage": "https://github.com/dhis2/event-charts-app#readme",
   "dependencies": {
-    "d2-analysis": "33.1.0",
+    "d2-analysis": "33.1.0-ev.1",
     "d2-charts-api": "29.0.1",
     "d2-utilizr": "0.2.13"
   },
@@ -46,8 +45,6 @@
     "eslint-plugin-react": "3.3.1",
     "img-loader": "^1.2.2",
     "json-loader": "^0.5.7",
-    "patch-package": "^8.0.0",
-    "postinstall-postinstall": "^2.1.0",
     "sass-loader": "7",
     "style-loader": "0.12.3",
     "url-loader": "^0.5.7",
