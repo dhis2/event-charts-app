@@ -1,3 +1,15 @@
+## [33.1.1](https://github.com/dhis2/event-charts-app/compare/v33.1.0...v33.1.1) (2024-07-24)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([1434ee3](https://github.com/dhis2/event-charts-app/commit/1434ee3dcf4484903b2232c447af6b64b7a482af))
+* **translations:** sync translations from transifex (master) ([654452b](https://github.com/dhis2/event-charts-app/commit/654452b9f4e224bd81c6d3338f68a77fbf66b496))
+* **translations:** sync translations from transifex (master) ([f4acc31](https://github.com/dhis2/event-charts-app/commit/f4acc310e5db5bd88631a29327ee6ff780553792))
+* add push analytics cls ([#1059](https://github.com/dhis2/event-charts-app/issues/1059)) ([13da9cd](https://github.com/dhis2/event-charts-app/commit/13da9cd68ae396ea9eab2fb6bea1ae8b60526da4))
+* trigger ci ([e7df56a](https://github.com/dhis2/event-charts-app/commit/e7df56aa09bb84bf11fcbddf7a8ed89b30680b99))
+* update patch request to fix renaming (DHIS2-17368) ([#1056](https://github.com/dhis2/event-charts-app/issues/1056)) ([b29d1e6](https://github.com/dhis2/event-charts-app/commit/b29d1e6c8b045896edfc2f9eb1ae2a67865be01c))
+
 ## [33.1.1](https://github.com/dhis2/event-charts-app/compare/v33.1.0...v33.1.1) (2024-06-09)
 
 
