@@ -1,3 +1,10 @@
+## [33.1.2](https://github.com/dhis2/event-charts-app/compare/v33.1.1...v33.1.2) (2025-03-13)
+
+
+### Bug Fixes
+
+* migrate from user credentials, calendar manager race condition (DHIS2-19206) ([#1197](https://github.com/dhis2/event-charts-app/issues/1197)) ([4263e86](https://github.com/dhis2/event-charts-app/commit/4263e86c4e03155699ebf72a864d41f11678d2ee))
+
 ## [33.1.1](https://github.com/dhis2/event-charts-app/compare/v33.1.0...v33.1.1) (2025-02-16)
 
 
