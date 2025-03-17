@@ -1,3 +1,10 @@
+# [33.2.0](https://github.com/dhis2/event-charts-app/compare/v33.1.2...v33.2.0) (2025-03-17)
+
+
+### Features
+
+* bundle icon in app bundle ([fa8e4a9](https://github.com/dhis2/event-charts-app/commit/fa8e4a964546f303f606a6c5ce211f310f94aac9))
+
 ## [33.1.2](https://github.com/dhis2/event-charts-app/compare/v33.1.1...v33.1.2) (2025-03-13)
 
 
