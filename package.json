@@ -8,7 +8,7 @@
     "validate": "npm ls --depth 0",
     "prestart": "d2-manifest package.json manifest.webapp",
     "start": "webpack-dev-server",
-    "build": "rm -rf build && webpack --config webpack.config.prod.js && cp ./index.html build && cp ./push-analytics.json build && cp ./jquery*.min.js build && cp -r i18n build && cp -r dhis2 build && cp -r extjs build && cp icon.png build && npm run manifest",
+    "build": "rm -rf build && webpack --config webpack.config.prod.js && cp ./index.html build && cp ./push-analytics.json build && cp ./jquery*.min.js build && cp -r i18n build && cp -r dhis2 build && cp -r extjs build && cp -r public/ build && npm run manifest",
     "manifest": "d2-manifest package.json build/manifest.webapp"
   },
   "repository": {
@@ -52,19 +52,14 @@
     "webpack-dev-server": "1.14.0"
   },
   "manifest.webapp": {
+    "short_name": "event-visualizer",
     "name": "DHIS2 event visualizer app",
     "icons": {
-      "48": "icon.png"
-    },
-    "developer": {
-      "url": "",
-      "name": "DHIS2 visualization team"
+      "48": "dhis2-app-icon.png"
     },
     "activities": {
       "dhis": {
-        "href": "..",
-        "auth": "admin:district",
-        "devHref": "https://test.e2e.dhis2.org/analytics-dev"
+        "href": "*"
       }
     }
   }
