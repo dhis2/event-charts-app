@@ -1,3 +1,10 @@
+## [33.2.1](https://github.com/dhis2/event-charts-app/compare/v33.2.0...v33.2.1) (2025-03-17)
+
+
+### Bug Fixes
+
+* clean up manifest and move icon ([68c618a](https://github.com/dhis2/event-charts-app/commit/68c618a6117b5e5622bfe8c8ff7529080c30925e))
+
 # [33.2.0](https://github.com/dhis2/event-charts-app/compare/v33.1.2...v33.2.0) (2025-03-17)
 
 
