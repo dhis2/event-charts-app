@@ -1,3 +1,10 @@
+## [33.2.3](https://github.com/dhis2/event-charts-app/compare/v33.2.2...v33.2.3) (2025-03-18)
+
+
+### Bug Fixes
+
+* remove author field from package.json ([#1198](https://github.com/dhis2/event-charts-app/issues/1198)) ([46a8868](https://github.com/dhis2/event-charts-app/commit/46a88689aba1806c139c0fe8fd0996fe75f2bb1d))
+
 ## [33.2.2](https://github.com/dhis2/event-charts-app/compare/v33.2.1...v33.2.2) (2025-03-18)
 
 
