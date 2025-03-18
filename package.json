@@ -20,7 +20,6 @@
     "HISP",
     "Pivot"
   ],
-  "author": "Jan Henrik Øverland",
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/dhis2/event-charts-app/issues"
@@ -56,6 +55,10 @@
     "name": "DHIS2 event visualizer app",
     "icons": {
       "48": "dhis2-app-icon.png"
+    },
+    "developer": {
+      "url": "",
+      "name": "DHIS2"
     },
     "activities": {
       "dhis": {
