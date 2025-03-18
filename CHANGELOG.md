@@ -1,3 +1,10 @@
+## [33.2.2](https://github.com/dhis2/event-charts-app/compare/v33.2.1...v33.2.2) (2025-03-18)
+
+
+### Bug Fixes
+
+* bundle public assets at root path ([ae83538](https://github.com/dhis2/event-charts-app/commit/ae835386515e42a76156e2c9fa311f35a8c8a85c))
+
 ## [33.2.1](https://github.com/dhis2/event-charts-app/compare/v33.2.0...v33.2.1) (2025-03-17)
 
 
