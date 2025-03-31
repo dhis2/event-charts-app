@@ -1,3 +1,10 @@
+## [33.2.4](https://github.com/dhis2/event-charts-app/compare/v33.2.3...v33.2.4) (2025-03-31)
+
+
+### Bug Fixes
+
+* add base target top ([#1199](https://github.com/dhis2/event-charts-app/issues/1199)) ([3b28e29](https://github.com/dhis2/event-charts-app/commit/3b28e29cb3d4982818b00a20032c34fab065da21))
+
 ## [33.2.3](https://github.com/dhis2/event-charts-app/compare/v33.2.2...v33.2.3) (2025-03-18)
 
 
