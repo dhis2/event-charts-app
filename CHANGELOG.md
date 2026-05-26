@@ -1,3 +1,10 @@
+## [33.2.5](https://github.com/dhis2/event-charts-app/compare/v33.2.4...v33.2.5) (2026-05-26)
+
+
+### Bug Fixes
+
+* unblock release step, pin cli-utils 5.1 ([#1336](https://github.com/dhis2/event-charts-app/issues/1336)) ([40494e2](https://github.com/dhis2/event-charts-app/commit/40494e28bc39217d2ada9e648bd06af283584d95))
+
 ## [33.2.4](https://github.com/dhis2/event-charts-app/compare/v33.2.3...v33.2.4) (2025-03-31)
 
 
