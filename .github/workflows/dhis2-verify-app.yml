@@ -97,4 +97,4 @@ jobs:
                   node-version: 14.x
 
             - name: Publish release to GitHub
-              run: npx @dhis2/cli-utils release
+              run: npx @dhis2/cli-utils@5.1.0 release
