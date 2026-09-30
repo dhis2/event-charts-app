@@ -1,3 +1,13 @@
+## [33.2.6](https://github.com/dhis2/event-charts-app/compare/v33.2.5...v33.2.6) (2026-09-30)
+
+
+### Bug Fixes
+
+* **ci:** sign commits in release job- [#1570](https://github.com/dhis2/event-charts-app/issues/1570) ([c8fc99f](https://github.com/dhis2/event-charts-app/commit/c8fc99f053daa109a6d0fbde4d6a950117659950))
+* orgunit tree loading ([#1374](https://github.com/dhis2/event-charts-app/issues/1374)) ([7d501c0](https://github.com/dhis2/event-charts-app/commit/7d501c011d7f71fd04558f0025d1e10668c13be6))
+* **translations:** sync translations from transifex (master) ([1a3fa3f](https://github.com/dhis2/event-charts-app/commit/1a3fa3f025b49271a373e596d819d7be0e9e4039))
+* **translations:** sync translations from transifex (master) ([5a50b71](https://github.com/dhis2/event-charts-app/commit/5a50b71211b58dcbc96a94884bd67a44625ac250))
+
 ## [33.2.5](https://github.com/dhis2/event-charts-app/compare/v33.2.4...v33.2.5) (2026-05-26)
 
 
