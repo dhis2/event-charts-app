@@ -96,5 +96,10 @@ jobs:
               with:
                   node-version: 14.x
 
+            - uses: dhis2/action-commit-signing@v1
+              with:
+                  ssh-signing-key: ${{ secrets.DHIS2_BOT_SSH_SIGNING_KEY }}
+                  ssh-signing-key-passphrase: ${{ secrets.DHIS2_BOT_SSH_SIGNING_PASSPHRASE }}
+
             - name: Publish release to GitHub
               run: npx @dhis2/cli-utils@5.1.0 release
